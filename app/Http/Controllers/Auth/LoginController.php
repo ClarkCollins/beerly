@@ -40,7 +40,7 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
-    public function gittest()
+    public function gitTest()
     {
         return view('auth.login');
     }
