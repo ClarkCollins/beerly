@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" href="images/favicon.ico" type="image/x-icon">
         <!-- CSRF Token -->
@@ -31,23 +31,22 @@
             }
             body{
                 background-image:url(images/loginbg.png);
-                height: 100%;
+                
                 /* Center and scale the image nicely */
+                background-repeat: no-repeat; 
                 background-position: center;
-                background-repeat: no-repeat;
+                background-attachment: fixed;       
+                webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
                 background-size: cover;
+                height:100%;
+                width:100%;
             }
             #app{
                 margin-top: 100px;
             }
-/*            // Extra small devices (portrait phones, less than 576px)*/
-            @media (max-width: 575.98px) {
-                background-image:url(images/loginbg.png);
-                height: 100%;
-                /* Center and scale the image nicely */
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;}
+            
         </style>
     </head>
     <body><img src='images/bblogo.png' class="topleft">
