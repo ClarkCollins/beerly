@@ -32,13 +32,16 @@
             body{
                 background-image:url(images/registerbg.jpeg);
 
-                /* Full height */
-                height: 100%; 
-
                 /* Center and scale the image nicely */
+                background-repeat: no-repeat; 
                 background-position: center;
-                background-repeat: no-repeat;
+                background-attachment: fixed;       
+                webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
                 background-size: cover;
+                height:100%;
+                width:100%;
             }
             .container{
                 margin-top: 100px;
@@ -131,6 +134,37 @@
                                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                     </div>
                                 </div>
+                                <div class="form-group {{ $errors->has('user_type') ? ' has-error' : '' }}">
+                                    <label for="users" class="col-md-4 control-label">User Type</label>
+
+                                    <div class="col-md-6">
+                                        <div class="panel-group">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title">
+                                                        <a data-toggle="collapse" href="#collapse1">Click to select the type of user you are</a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapse1" class="panel-collapse collapse">
+                                                    <div class="panel-body">
+                                                        
+                                                        <input type="radio" name="user_type" value="Establishment Owner">&nbsp;&nbsp;&nbsp;&nbsp;Establishment Owner<br>
+                                                        <p>By establishment we mean pub &amp; grub, bar, bistro, night club, tavern etc, brief if you sell alcohol and do frequent specials this is for you.</p>
+                                                        <input type="radio" name="user_type" value="Event Promoter">&nbsp;&nbsp;&nbsp;&nbsp;Event Promoter<br>
+                                                        <p>Any event that you want to make visible, as long as there is music and beer this is the place for you.</p>
+                                                        <input type="radio" name="user_type" value="Artist">&nbsp;&nbsp;&nbsp;&nbsp;Artist
+                                                        <p>DJ, Band, Poet, have fans and want to let them know where to catch your next gig? click here. </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($errors->has('user_type'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('user_type') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
                                  <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
                                             <div class="checkbox">
@@ -141,7 +175,6 @@
                                         </div>
 
                                     </div>
-
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-4">
                                         <button type="submit" class="btn btn-primary">
@@ -160,5 +193,15 @@
         </div><br><br><br>
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}"></script>
+        <script>
+function myFunction() {
+    var x = document.getElementById("myDIV");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+        </script>
     </body>
 </html>
