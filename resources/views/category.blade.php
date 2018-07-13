@@ -106,9 +106,6 @@
                                         <input hidden type="text" name="user_type"value="Artist">
                                         <button type="submit" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
                                     </form>
-                                    @if(Session::has('id')))  
-                                    <p>{{ Session::get('id')}}</p>
-                                    @endif
                                     
                                 </div>
                             </div>

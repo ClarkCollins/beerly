@@ -73,7 +73,7 @@ class establishmentController extends Controller
         $user->user_type = $request->get('user_type');
 
         $user->save();
-        return redirect('establishment_dashboard');
+        return redirect('event_dashboard');
     }
      public function update_artist( Request $request)
     {
@@ -83,7 +83,7 @@ class establishmentController extends Controller
         $user->user_type = $request->get('user_type');
 
         $user->save();
-        return redirect('establishment_dashboard');
+        return redirect('event_dashboard');
     }
     public function category()
     {
