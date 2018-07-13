@@ -44,8 +44,7 @@
         </script>
     </head>
     <body class="fix-header fix-sidebar"><br>
-        {{ Session::get('first_name')}}
-       
+        
         <!-- Preloader - style you can find in spinners.css -->
         <!--   <div class="preloader">
                 <svg class="circular" viewBox="25 25 50 50">
@@ -76,8 +75,9 @@
                                     <h5 class="card-title">Establishment Owner</h5>
                                     <p class="card-text">By establishment we mean pub &amp; grub, bar, bistro, night club, tavern etc, brief if you sell alcohol and do frequent specials this is for you.</p>
                                     <p class="card-text">
-                                    <form action="/select_user_type/" method="get">
-                                        <input hidden type="text" name="establishment_owner"value="id">
+                                    <form action="/select_user_type" method="post">
+                                        {{ csrf_field() }}
+                                        <input hidden type="text" name="user_type" value="Establishment Owner" >
                                         <button type="submit" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
                                     </form>
                                 </div>
@@ -88,9 +88,10 @@
                                     <h5 class="card-title">Event Promoter</h5>
                                     <p class="card-text">Any event that you want to make visible, as long as there is music and beer this is the place for you.</p>
                                     <p class="card-text"><small class="text-muted"></small></p>
-                                    <form action="" method="post">
-                                        <input hidden type="text" name="event_promoter" value="Event Promoter">
-                                        <button type="button" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
+                                    <form action="/select_promoter" method="post">
+                                        {{ csrf_field() }}
+                                        <input hidden type="text" name="user_type" value="Event Promoter">
+                                        <button type="submit" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
                                     </form>
                                 </div>
                             </div>
@@ -100,13 +101,14 @@
                                     <h5 class="card-title">Artist</h5>
                                     <p class="card-text">DJ, Band, Poet, have fans and want to let them know where to catch your next gig? click here. </p>
                                     <p class="card-text"><small class="text-muted"></small></p>
-                                    <form action="" method="post">
-                                        <input hidden type="text" name="artist"value="Artist">
-                                        <button type="button" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
+                                    <form action="/select_artist" method="post">
+                                        {{ csrf_field() }}
+                                        <input hidden type="text" name="user_type"value="Artist">
+                                        <button type="submit" class="btn btn-primary btn-block btn-md m-b-10 m-l-5">Select</button>
                                     </form>
-<!--                                    @if(Session::has('id')))  
-                                    <p>{{ Session::get('user_id')}}</p>
-                                    @endif-->
+                                    @if(Session::has('id')))  
+                                    <p>{{ Session::get('id')}}</p>
+                                    @endif
                                     
                                 </div>
                             </div>

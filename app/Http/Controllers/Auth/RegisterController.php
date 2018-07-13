@@ -29,7 +29,7 @@ class RegisterController extends Controller
      */
    
       
-    protected $redirectTo = '/establishment_dashboard';
+    protected $redirectTo = '/category_view';
     
 
     /**
@@ -56,7 +56,6 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'contact_no' => 'required|numeric|min:10',
             'password' => 'required|string|min:6|confirmed',
-            'user_type' => 'required|string',
         ]);
     }
 
@@ -74,7 +73,6 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'contact_no' => $data['contact_no'],
             'password' => bcrypt($data['password']),
-            'user_type' => ($data['user_type']),
         ]);
        
     }

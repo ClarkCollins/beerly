@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Session;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -20,13 +22,32 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '/establishment_dashboard';
+//    protected $redirectTo = '/establishment_dashboard';
+     public function authenticated(Request $request , $user){
+        $user = Auth::user();
+        Session::put('id', $user->id);
+        Session::put('email', $user->email);
+        Session::put('first_name', $user->first_name);
+        Session::put('last_name', $user->last_name);
+    if($user->user_type=='Establishment Owner'){
+        return redirect()->route('establishment_dashboard') ;
+    }elseif($user->user_type=='Event Promoter'){
+        return view('dashboard.event_dashboard');
+    }
+    elseif($user->user_type=='Artist'){
+        return view('dashboard.event_dashboard');
+    }
+    elseif($user->user_type==''){
+        return view('category');
+    }
+}
 
     /**
      * Create a new controller instance.
@@ -36,18 +57,20 @@ class LoginController extends Controller
     
     public function __construct()
     {
-        $data = Array ([email] => $this->input->post('email'));
-        Session::push('user', $data);
+        
         $this->middleware('guest')->except('logout');
         
     }
+   
     public function index()
     {
+        
         return view('auth.login');
     }
     
-//    public function setSession(Request $req)
+//    public function setSession()
 //    {
-//        Session::put('email', $email);
+//    $user = Auth::user();
+//    Session::put('email', $user->email);
 //    }
 }

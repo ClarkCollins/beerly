@@ -152,15 +152,15 @@
 
 
 
-                            <li> <a  href="/establishment_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a  href="/event_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 
-                            <li> <a  href="/establishment_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
+                            <li> <a  href="/event_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
 
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Event Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -259,9 +259,6 @@
 
                     @if(Session::has('email'))
                     <p>{{ Session::get('id')}}</p>
-                    <p>{{ Session::get('email')}}</p>
-                    <p>{{ Session::get('first_name')}}</p>
-                    <p>{{ Session::get('last_name')}}</p>
                     @endif
                      
 

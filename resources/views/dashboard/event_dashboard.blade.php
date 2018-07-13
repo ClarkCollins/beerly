@@ -11,12 +11,9 @@
         <link rel="icon" href="images/favicon.ico" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Establishment Profile</title>
+        <title>Dashboard</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        
-        <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/spinners.css" rel="stylesheet">
@@ -152,15 +149,15 @@
 
 
 
-                            <li> <a  href="/establishment_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a  href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 
-                            <li> <a  href="/establishment_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
+                            <li> <a  href="/event_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
 
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a  href="/event_profile" ><i class="fa fa-building"></i><span class="show-menu">Events Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -184,7 +181,7 @@
             </div>
             <!-- End Left Sidebar  -->
             <!-- Page wrapper  -->
-            <div class="page-wrapper" style="height:1200px;">
+            <div class="page-wrapper" style="height:800px;">
                 <!-- Bread crumb -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
@@ -209,8 +206,8 @@
                                         <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
                                     </div>
                                     <div class="media-body media-text-right">
-                                        <h2>568120</h2>
-                                        <p class="m-b-0">Total Revenue</p>
+                                        <h2>009</h2>
+                                        <p class="m-b-0">Promotions</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,8 +219,8 @@
                                         <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
                                     </div>
                                     <div class="media-body media-text-right">
-                                        <h2>1178</h2>
-                                        <p class="m-b-0">Sales</p>
+                                        <h2>100</h2>
+                                        <p class="m-b-0">Beer Lovers</p>
                                     </div>
                                 </div>
                             </div>
@@ -235,35 +232,21 @@
                                         <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
                                     </div>
                                     <div class="media-body media-text-right">
-                                        <h2>25</h2>
-                                        <p class="m-b-0">Stores</p>
+                                        <h2>00</h2>
+                                        <p class="m-b-0">Events</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-user f-s-40 color-danger"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>847</h2>
-                                        <p class="m-b-0">Customer</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
+
                     </div>
-
-
-                    @if(Session::has('email'))
-                    <p>{{ Session::get('id')}}</p>
+                    <br>
+                    @if(Session::has('email')))  
                     <p>{{ Session::get('email')}}</p>
-                    <p>{{ Session::get('first_name')}}</p>
-                    <p>{{ Session::get('last_name')}}</p>
                     @endif
-                     
+
+
 
 
                     <!-- End PAge Content -->
