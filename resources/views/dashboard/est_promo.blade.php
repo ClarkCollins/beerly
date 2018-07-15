@@ -14,6 +14,7 @@
         <title>Promotion</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
@@ -196,7 +197,6 @@
                 </div>
                 <!-- End Bread crumb -->
                 <!-- Container fluid  -->
-                <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
                     <div class="card">
@@ -205,7 +205,7 @@
                             <h6 class="card-subtitle">List of Promotions</h6>
                             <button type="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new promotion</button>
                             <div class="table-responsive m-t-40">
-                                <table id="myTable" class="table table-bordered table-striped">
+                                <table id="myTable" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Title</th>
@@ -457,7 +457,7 @@
         <script src="js/scripts.js"></script>
 
         <script src="js/datatables.min.js"></script>
-        <script src="js/ldataTables.buttons.min.js"></script>
+        <script src="js/dataTables.buttons.min.js"></script>
         <script src="js/buttons.flash.min.js"></script>
         <script src="js/jszip.min.js"></script>
         <script src="js/pdfmake.min.js"></script>

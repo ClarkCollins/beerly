@@ -157,11 +157,14 @@
                             </li>
 
                             <li> <a  href="/establishment_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
-
+                                
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a class="has-arrow  " href="#" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                                <ul aria-expanded="true" >
+                                    <li><a href="/add_establishment_view">Add Establishment</a></li>
 
+                                </ul>
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -201,69 +204,70 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>568120</h2>
-                                        <p class="m-b-0">Total Revenue</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>1178</h2>
-                                        <p class="m-b-0">Sales</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>25</h2>
-                                        <p class="m-b-0">Stores</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-user f-s-40 color-danger"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>847</h2>
-                                        <p class="m-b-0">Customer</p>
-                                    </div>
-                                </div>
+                    <!-- Start Page Content -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Establishment</h4>
+                            <h6 class="card-subtitle">List of Establishment</h6>
+                            <a href="/add_establishment_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new establishment</a> 
+                            <div class="table-responsive m-t-40">
+                                 <table id="myTable" class="table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Beer</th>
+                                            <th>Establishment</th>
+                                            <th>Start Date</th>
+                                            <th>End date</th>
+                                            <th>Status</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                        @foreach ($establishments as $establishment)
+                                        <tr>
+                                            
+                                            @if ($establishment->creator_id == Session::get('id'))
+                                            
+                                            <td>{{ $establishment->name }}</td>
+                                            <td>{{ $establishment->contact_person }}</td>
+                                            <td>{{ $establishment->contact_number }}</td>                                                
+                                            <td>{{ $establishment->liqour_license }}</td>
+                                            <td>{{ $establishment->hs_license }}</td>
+                                            <td>{{ $establishment->latitude }}</td>
+                                            <td>{{ $establishment->longitude }}</td>
+                                            <td>{{ $establishment->id }}</td>
+                                            
+                                            @endif
+                                        </tr>
+                                        @endforeach-->
+                               @foreach ($establishments as $establishment)
+                               @if ($establishment->creator_id == Session::get('id'))
+                                        <tr>
+                                            
+                                            <td>{{ $establishment->name }}</td>
+                                            <td>{{ $establishment->contact_person }}</td>
+                                            <td>{{ $establishment->contact_number }}</td>                                                
+                                            <td>{{ $establishment->liqour_license }}</td>
+                                            <td>{{ $establishment->hs_license }}</td>
+                                            <td>{{ $establishment->latitude }}</td>
+                                            <td>{{ $establishment->id }}</td>
+                                            <td>Add, Edit, Delete</td>
+                                        </tr>
+                                        @endif
+                                        @endforeach
+                                        
+
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
 
 
-                    @if(Session::has('email'))
-                    <p>{{ Session::get('id')}}</p>
-                    <p>{{ Session::get('email')}}</p>
-                    <p>{{ Session::get('first_name')}}</p>
-                    <p>{{ Session::get('last_name')}}</p>
-                    @endif
-                     
+
 
 
                     <!-- End PAge Content -->
@@ -290,7 +294,16 @@
         <script src="js/sticky-kit.min.js"></script>
         <!--Custom JavaScript -->
         <script src="js/scripts.js"></script>
-
+      
+        <script src="js/datatables.min.js"></script>
+        <script src="js/dataTables.buttons.min.js"></script>
+        <script src="js/buttons.flash.min.js"></script>
+        <script src="js/jszip.min.js"></script>
+        <script src="js/pdfmake.min.js"></script>
+        <script src="js/vfs_fonts.js"></script>
+        <script src="js/buttons.html5.min.js"></script>
+        <script src="js/buttons.print.min.js"></script>
+        <script src="js/datatables-init.js"></script>
     </body>
 
 </html>

@@ -14,6 +14,8 @@
         <title>Promotion</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        
         <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
@@ -158,7 +160,7 @@
 
                             </li>
 
-                            <li> <a  href="/event_profile" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a  href="/event_profile" ><i class="fa fa-building"></i><span class="show-menu">Event Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -457,7 +459,7 @@
         <script src="js/scripts.js"></script>
 
         <script src="js/datatables.min.js"></script>
-        <script src="js/ldataTables.buttons.min.js"></script>
+        <script src="js/dataTables.buttons.min.js"></script>
         <script src="js/buttons.flash.min.js"></script>
         <script src="js/jszip.min.js"></script>
         <script src="js/pdfmake.min.js"></script>

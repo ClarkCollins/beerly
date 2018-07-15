@@ -29,4 +29,8 @@ class HomeController extends Controller
     {
         return view('category');
     }
+    public function datatable()
+    {
+        return view('datatables');
+    }
 }

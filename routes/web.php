@@ -31,9 +31,13 @@ Route::get('/category_view', 'establishmentController@category');
 Route::post('/select_user_type', 'establishmentController@update_owner_type');
 Route::post('/select_promoter', 'establishmentController@update_event_promoter');
 Route::post('/select_artist', 'establishmentController@update_artist');
+
 Route::get('/establishment_dashboard', 'establishmentController@dashboard');
 Route::get('/establishment_profile', 'establishmentController@est_profile');
 Route::get('/establishment_promo', 'establishmentController@est_promo');
+Route::post('/add_establishment', 'establishmentController@addEstablishment');
+Route::get('/add_establishment_view', 'establishmentController@view_addEstablishment');
+Route::get('/view_establishment', 'establishmentController@getEstablishment');
 
 Route::get('/event_dashboard', 'establishmentController@event_dashboard');
 Route::get('/event_profile', 'establishmentController@event_profile');

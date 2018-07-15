@@ -103,7 +103,7 @@
                                     <label for="contact_no" class="col-md-4 control-label">Contact Number</label>
 
                                     <div class="col-md-6">
-                                        <input id="email" type="number" maxlength="10" minlength="10" class="form-control" name="contact_no" value="{{ old('contact_no') }}" required autofocus>
+                                        <input id="email" type="number" class="form-control" name="contact_no" value="{{ old('contact_no') }}" required autofocus>
 
                                         @if ($errors->has('contact_no'))
                                         <span class="help-block">
