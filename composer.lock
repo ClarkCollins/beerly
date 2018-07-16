@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52a78687cc030dc515af48b50951f7b2",
+    "content-hash": "9258138d1d1c00c825f5124dea4b0839",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -554,6 +554,64 @@
                 "parser"
             ],
             "time": "2018-03-08T01:11:30+00:00"
+        },
+        {
+            "name": "gtk/flash-message",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gtkvn/flash-message.git",
+                "reference": "014031d9b4f99227072a13f24015950a1372445b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gtkvn/flash-message/zipball/014031d9b4f99227072a13f24015950a1372445b",
+                "reference": "014031d9b4f99227072a13f24015950a1372445b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.9",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Gtk\\FlashMessage\\FlashMessageServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Gtk\\FlashMessage\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Giang Thai Cuong",
+                    "email": "thaicuong.giang@gmail.com"
+                }
+            ],
+            "description": "Flash Message for Laravel 5.",
+            "keywords": [
+                "flash message",
+                "laravel",
+                "notification",
+                "notifyjs",
+                "sweetalert"
+            ],
+            "time": "2017-11-13T04:48:27+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

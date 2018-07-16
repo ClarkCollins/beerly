@@ -5,13 +5,11 @@ namespace App\Http\Controllers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Session;
-use Illuminate\Routing\Controller as BaseController;
 use App\User;
 use App\establishments;
-use DB;
-
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 class establishmentController extends Controller {
 
     public function __construct() {
@@ -37,11 +35,9 @@ class establishmentController extends Controller {
     }
 
     public function est_profile() {
-        $id = Auth::user()->id;
-         $establishments = DB::select('select * from establishments');
-        
-        
-        return view('dashboard.est_profile',['establishments'=>$establishments]);
+        $establishments = DB::table('establishments')->paginate(5);
+//        $establishments = DB::select('select * from establishments')->paginate(6);
+        return view('dashboard.est_profile', ['establishments' => $establishments]);
     }
 
     public function est_promo() {
@@ -104,41 +100,97 @@ class establishmentController extends Controller {
         Session::put('user_type', $user->user_type);
         return view('category');
     }
+
     public function view_addEstablishment() {
-        
+
         return view('dashboard.addEstablishment');
     }
 
-    public function addEstablishment(Request $request) {        
-$data = $request->all();
-        $id = Auth::user()->id;
-        establishments::create([
-            'name' => $data['name'],
-            'contact_person' => $data['contact_person'],
-            'contact_number' => $data['contact_number'],
-            'address' => $data['address'],
-            'establishment_url' => $data['establishment_url'],
-            'liqour_license' => $data['liqour_license'],
-            'hs_license' => $data['hs_license'],
-            'latitude' => $data['latitude'],
-            'longitude' => $data['longitude'],
-            'main_picture_url' => $request->main_picture_url[0],
-            'picture_2' => $request->main_picture_url[1],
-            'picture_3' => $request->main_picture_url[2],
-            'creator_id' => $id,
-            'last_inspection_date' => $data['last_inspection_date'],
-            'user_name' => "Null",
+    public function addEstablishment(Request $request) {
+        
+        $this->validate($request,[
+                    'name' => 'required|max:191',
+                    'contact_person' => 'required|max:191',
+                    'contact_number' => 'required|numeric|min:10',
+                    'address' => 'required|max:191',
+                    'liqour_license' => 'required|max:191',
+                    'hs_license' => 'required|max:191',
+                    'latitude' => 'required|max:191',
+                    'longitude' => 'required|max:191',
+             'photo.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
+        
+   
+    
+        if ($request->hasfile('photo')) {
 
-        return redirect()->back();
+            foreach ($request->file('photo') as $image) {
+                $name = $image->getClientOriginalName();
+                $path = $image->move(public_path() . '/upload/', $name);
+                $data[] = $path;
+            }
+        }
+
+        $id = Auth::user()->id;
+                $establisments = new establishments;
+                $establisments->name = $request->input('name');
+                $establisments->contact_person = $request->input('contact_person');
+                $establisments->contact_number = $request->input('contact_number');
+                $establisments->address = $request->input('address');
+                $establisments->establishment_url = $request->input('establishment_url');
+                $establisments->liqour_license = $request->input('liqour_license');
+                $establisments->hs_license = $request->input('hs_license');
+                $establisments->latitude = $request->input('latitude');
+                $establisments->longitude = $request->input('longitude');
+                $establisments->main_picture_url = $data[0];
+                $establisments->picture_2 = $data[1];
+                $establisments->picture_3 = $data[2];
+                $establisments->last_inspection_date = $request->input('last_inspection_date');
+                $establisments->creator_id = $id;
+                $establisments->user_name = "Null";
+                $establisments->save();
+           \Session::flash('message', 'You have successfully added a new establishment!');
+           
+           return redirect('establishment_profile');
+
+
+//        return view('dashboard.est_profile');
     }
-    public function getEstablishment()
-    {
+
+    public function updateEstablishment(Request $request, $id) {
+        $name = $request->input('name');
+        $contact_person = $request->input('contact_person');
+        $contact_number = $request->input('contact_number');
+        $address = $request->input('address');
+        $establishment_url = $request->input('establishment_url');
+        $liqour_license = $request->input('liqour_license');
+        $hs_license = $request->input('hs_license');
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $main_picture_url = $request->main_picture_url[0];
+        $main_picture_url2 = $request->main_picture_url[1];
+        $main_picture_url3 = $request->main_picture_url[2];
+        $last_inspection_date = $request->input('last_inspection_date');
+        DB::update('update establishments set name = ?,contact_person=?,contact_number=?,address=?,establishment_url=?,'
+                . 'liqour_license=?,hs_license=?,latitude=?,longitude=?,main_picture_url=?,picture_2=?,picture_3=?,last_inspection_date=?,'
+                . ' where id = ?', [$name, $contact_person, $contact_number, $address, $establishment_url,
+            $liqour_license, $hs_license, $latitude, $longitude, $main_picture_url,
+            $main_picture_url2, $main_picture_url3, $last_inspection_date, $id]);
+
+        return view('dashboard.est_profile');
+    }
+
+    public function updateEstablishmentView($id) {
+        $establishments = DB::select('select * from establishments where id =?', [$id]);
+        return view('dashboard.updateEstablishment', ['establishments' => $establishments]);
+    }
+
+    public function getEstablishment() {
 //         $id = Auth::user()->id;
         $establishments = establishments::select('select * from establishments where creator_id = 2 ');
-        
-        
-        return view('dashboard.est_profile',['$establishments'=>$establishments]);
+
+
+        return view('dashboard.est_profile', ['$establishments' => $establishments]);
     }
 
 //    protected function validator(array $data) {
@@ -153,5 +205,4 @@ $data = $request->all();
 //                    'longitude' => 'required|max:191',
 //        ]);
 //    }
-
 }

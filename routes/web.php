@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/category_view', 'HomeController@category');
 //Route::get('/select_user_type', 'beerlyController@insert_establishment_owner');
 //Route::get('/establishment_dashboard', 'establishmentController@dashboard');
@@ -37,6 +37,8 @@ Route::get('/establishment_profile', 'establishmentController@est_profile');
 Route::get('/establishment_promo', 'establishmentController@est_promo');
 Route::post('/add_establishment', 'establishmentController@addEstablishment');
 Route::get('/add_establishment_view', 'establishmentController@view_addEstablishment');
+Route::get('/update_establishment_view/{id}', 'establishmentController@updateEstablishmentView');
+Route::post('/update_establishment/{id}', 'establishmentController@updateEstablishment');
 Route::get('/view_establishment', 'establishmentController@getEstablishment');
 
 Route::get('/event_dashboard', 'establishmentController@event_dashboard');

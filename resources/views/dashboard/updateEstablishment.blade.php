@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +13,6 @@
         <title>Establishment Profile</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
         <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
@@ -207,14 +205,14 @@
                                 <h4 class="m-b-0 text-white">New Establishment</h4>
                             </div>
                             <div class="card-body">
-                                <form action="/add_establishment" enctype="multipart/form-data"  method="post">
+                                <form action="/update_establishment/<?php echo $establishments[0]->id; ?>" method="post">
                                     {{ csrf_field() }}
                                     <div class="form-body">
                                         <div class="row p-t-20">
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Establishment Name</label>
-                                                    <input  type="text" id="name" name="name" class="form-control" value="{{ old('name') }}"autofocus>
+                                                    <input required  type="text" id="name" name="name" class="form-control" value="<?php echo $establishments[0]->name; ?>"autofocus>
                                                     @if ($errors->has('name'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('name') }}</strong>
@@ -226,7 +224,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('contact_person') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Person</label>
-                                                    <input  type="text" id="contact_person" name="contact_person" value="{{ old('contact_person') }}" class="form-control" autofocus>
+                                                    <input required  type="text" id="contact_person" name="contact_person" value="<?php echo $establishments[0]->contact_person; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('contact_person'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_person') }}</strong>
@@ -237,7 +235,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Number</label>
-                                                    <input  type="text" title="this is a numeric field and has to be 10 characters" id="contact_number" name="contact_number" value="{{ old('contact_number') }}" class="form-control" autofocus> </div>
+                                                    <input required  type="text" pattern="(?=.*\d).{10,10}"title="this is a numeric field and has to be 10 characters" id="contact_number" name="contact_number" value="<?php echo $establishments[0]->contact_number; ?>" class="form-control" autofocus> </div>
                                                     @if ($errors->has('contact_number'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_number') }}</strong>
@@ -250,7 +248,7 @@
                                             <div class="col-md-12 ">
                                                 <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}" >
                                                     <label>Address</label>
-                                                    <input id="autocomplete" name="address"  type="text" value="{{ old('address') }}" class="form-control" autofocus>
+                                                    <input required id="autocomplete" name="address"  type="text" class="form-control" value="<?php echo $establishments[0]->address; ?>" autofocus>
                                                     @if ($errors->has('address'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('address') }}</strong>
@@ -263,8 +261,8 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('liqour_license') ? ' has-error' : '' }}" >
-                                                    <label class="control-label">Liqour License</label>
-                                                    <input  type="text" name="liqour_license" id="liqour_license" value="{{ old('liqour_license') }}" class="form-control" autofocus>
+                                                    <label class="control-label">Liquor License</label>
+                                                    <input required  type="text" name="liqour_license" id="liqour_license" value="<?php echo $establishments[0]->liqour_license; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('liqour_license'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('liqour_license') }}</strong>
@@ -276,7 +274,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('hs_license') ? ' has-error' : '' }}" >
                                                     <label class="control-label">HS License</label>
-                                                    <input  type="text" name="hs_license" id="hs_license" value="{{ old('hs_license') }}" class="form-control" autofocus>
+                                                    <input required  type="text" name="hs_license" id="hs_license" value="<?php echo $establishments[0]->hs_license; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('hs_license'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('hs_license') }}</strong>
@@ -291,7 +289,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('establishment_url') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Website url</label>
-                                                    <input  type="url" placeholder="e.g. http:www.google.com" pattern="https?://.+" title="Include http://" id="establishment_url" name="establishment_url" class="form-control" value="{{ old('establishment_url') }}" autofocus>
+                                                    <input required type="url" placeholder="e.g. http:www.google.com" pattern="https?://.+" title="Include http://" id="establishment_url" name="establishment_url" class="form-control" value="<?php echo $establishments[0]->establishment_url; ?>" autofocus>
                                                     @if ($errors->has('establishment_url'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('establishment_url') }}</strong>
@@ -303,7 +301,7 @@
                                             <div class="col-md-6">
                                                <div class="form-group{{ $errors->has('last_inspection_date') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Last Inspection Date</label>
-                                                    <input  max="<?php echo date('Y-m-d') ?>" type="date" id="last_inspection_date" name="last_inspection_date" value="{{ old('last_inspection_date') }}" class="form-control" autofocus placeholder="dd/mm/yyyy">
+                                                    <input required max="<?php echo date('Y-m-d') ?>" type="date" id="last_inspection_date" name="last_inspection_date" value="<?php echo $establishments[0]->last_inspection_date; ?>" class="form-control" autofocus placeholder="dd/mm/yyyy">
                                                     @if ($errors->has('last_inspection_date'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('last_inspection_date') }}</strong>
@@ -321,7 +319,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('latitude') ? ' has-error' : '' }}" >
                                                     <label>Latitude</label>
-                                                    <input  id="latitude" name="latitude" type="text" value="{{ old('latitude') }}" class="form-control" autofocus>
+                                                    <input required id="latitude" name="latitude" type="text" value="<?php echo $establishments[0]->latitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('latitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('latitude') }}</strong>
@@ -333,7 +331,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('longitude') ? ' has-error' : '' }}" >
                                                     <label>Longitude</label>
-                                                    <input  id="longitude" name="longitude" type="text" value="{{ old('longitude') }}" class="form-control" autofocus>
+                                                    <input required id="longitude" name="longitude" type="text" value="<?php echo $establishments[0]->longitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('longitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('longitude') }}</strong>
@@ -347,12 +345,12 @@
                                         <!--/row-->
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}" >
+                                                <div class="form-group{{ $errors->has('main_picture_url') ? ' has-error' : '' }}" >
                                                     <label>Photos</label>
-                                                    <input  accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" id="photo" name="photo[]" type="file" value="user.jpeg" class="form-control" autofocus>
-                                                    @if ($errors->has('photo'))
+                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" id="main_picture_url" name="main_picture_url[]" type="file" value="<?php echo $establishments[0]->main_picture_url; ?>" class="form-control" autofocus>
+                                                    @if ($errors->has('main_picture_url'))
                                                     <span class="help-block">
-                                                        <strong>{{ $errors->first('photo') }}</strong>
+                                                        <strong>{{ $errors->first('main_picture_url') }}</strong>
                                                     </span>
                                                     @endif
                                                 </div>
