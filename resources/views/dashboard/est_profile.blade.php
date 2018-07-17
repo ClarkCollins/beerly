@@ -211,6 +211,12 @@
                         <p style='text-align: center; color: black'>{!! session('message') !!}</p> 
                     </div>
                     @endif
+                    @if (Session::has('delete'))
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p style='text-align: center; color: black'>{!! session('delete') !!}</p> 
+                    </div>
+                    @endif
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Establishment</h4>
@@ -218,11 +224,11 @@
                             <a href="/add_establishment_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new establishment</a> 
                             
                             <div class="table-responsive m-t-40">
-<!--                                <table id="myTable" class="table-bordered table-striped">
+                                <table id="myTable" class="table-bordered table-striped">
                                     <thead>
                                         <tr>
+                                            <th>No.</th>
                                             <th>Name</th>
-                                            <th>Address</th>
                                             <th>Contact Person</th>
                                             <th>Contact Number</th>
                                             <th>Liqour License</th>
@@ -234,47 +240,42 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($establishments as $establishment)
+                                        @foreach ($establishments as $key => $establishment)
 
                                     @if ($establishment->creator_id == Session::get('id'))
                                     <tr>
-
+                                        <td> 
+                                            {{ ++$key}}
+                                        </td>
                                         <td>{{ $establishment->name }}</td>
-                                        <td>{{ $establishment->id }}</td>
                                         <td>{{ $establishment->contact_person }}</td>
                                         <td>{{ $establishment->contact_number }}</td>                                                
                                         <td>{{ $establishment->liqour_license }}</td>
                                         <td>{{ $establishment->hs_license }}</td>
                                         <td>{{ $establishment->latitude }}</td>
                                         <td>{{ $establishment->longitude }}</td>
-                                        <td>Add, <a href = '/update_establishment_view/{{ $establishment->id }}'>Edit</a>, Delete</td>
+                                        <td>
+                                            <a href = '/update_establishment_view/{{ $establishment->id }}'>Edit</a>,
+                                            <form action="/delete_establishment/{{ $establishment->id }}" enctype="multipart/form-data"  method="post">
+                                                {{ csrf_field() }}
+                                                <input  hidden name="status" type="text" value='Inactive'>
+                                                <style>
+                                                    #deleteBtn{
+                                                        background: none; 
+                                                        outline: none;
+                                                        color: red;
+                                                    }
+                                                </style>
+                                                <button id='deleteBtn' class='btn' type='submit'>Delete</button>
+                                            </form>  
+                                        </td>
                                     </tr>
+                                    
                                     @endif
                                     @endforeach
                                     </tbody>
-                                </table>-->
-                                <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($establishments as $establishment)
-
-        @if ($establishment->creator_id == Session::get('id'))
-        <tr>
-            <td>{{ $establishment->hs_license }}</td>
-            <td>{{ $establishment->latitude }}</td>
-            <td>{{ $establishment->longitude }}</td>
-        </tr>
-        @endif
-        @endforeach
-    </tbody>
-  </table>
-   {{ $establishments->links() }}
+                                </table>
+ 
                             </div>
                             
                         </div>
@@ -305,7 +306,7 @@
         <script src="js/sticky-kit.min.js"></script>
         <!--Custom JavaScript -->
         <script src="js/scripts.js"></script>
-<!--
+
         <script src="js/datatables.min.js"></script>
         <script src="js/dataTables.buttons.min.js"></script>
         <script src="js/buttons.flash.min.js"></script>
@@ -315,7 +316,7 @@
         <script src="js/buttons.html5.min.js"></script>
         <script src="js/buttons.print.min.js"></script>
         <script src="js/datatables-init.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </body>
 
 </html>

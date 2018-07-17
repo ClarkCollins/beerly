@@ -39,6 +39,7 @@ Route::post('/add_establishment', 'establishmentController@addEstablishment');
 Route::get('/add_establishment_view', 'establishmentController@view_addEstablishment');
 Route::get('/update_establishment_view/{id}', 'establishmentController@updateEstablishmentView');
 Route::post('/update_establishment/{id}', 'establishmentController@updateEstablishment');
+Route::post('/delete_establishment/{id}', 'establishmentController@deleteEstablishment');
 Route::get('/view_establishment', 'establishmentController@getEstablishment');
 
 Route::get('/event_dashboard', 'establishmentController@event_dashboard');

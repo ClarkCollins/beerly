@@ -9,7 +9,7 @@ use Session;
 use App\User;
 use App\establishments;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 class establishmentController extends Controller {
 
     public function __construct() {
@@ -35,93 +35,35 @@ class establishmentController extends Controller {
     }
 
     public function est_profile() {
-        $establishments = DB::table('establishments')->paginate(5);
-//        $establishments = DB::select('select * from establishments')->paginate(6);
+        $status = "Active";
+        $establishments = DB::select('select * from establishments where status =?',[$status]);
         return view('dashboard.est_profile', ['establishments' => $establishments]);
-    }
-
-    public function est_promo() {
-        return view('dashboard.est_promo');
-    }
-
-    public function event_dashboard() {
-        $user = Auth::user();
-        Session::put('id', $user->id);
-        Session::put('email', $user->email);
-        Session::put('first_name', $user->first_name);
-        Session::put('last_name', $user->last_name);
-        return view('dashboard.event_dashboard');
-    }
-
-    public function event_profile() {
-        return view('dashboard.event_profile');
-    }
-
-    public function event_promo() {
-        return view('dashboard.event_promo');
-    }
-
-    public function update_owner_type(Request $request) {
-        $id = Session::get('id');
-
-        $user = User::find($id);
-        $user->user_type = $request->get('user_type');
-
-        $user->save();
-        return redirect('establishment_dashboard');
-    }
-
-    public function update_event_promoter(Request $request) {
-        $id = Session::get('id');
-
-        $user = User::find($id);
-        $user->user_type = $request->get('user_type');
-
-        $user->save();
-        return redirect('event_dashboard');
-    }
-
-    public function update_artist(Request $request) {
-        $id = Session::get('id');
-
-        $user = User::find($id);
-        $user->user_type = $request->get('user_type');
-
-        $user->save();
-        return redirect('event_dashboard');
-    }
-
-    public function category() {
-        $user = Auth::user();
-        Session::put('id', $user->id);
-        Session::put('email', $user->email);
-        Session::put('first_name', $user->first_name);
-        Session::put('last_name', $user->last_name);
-        Session::put('user_type', $user->user_type);
-        return view('category');
     }
 
     public function view_addEstablishment() {
 
         return view('dashboard.addEstablishment');
     }
+    public function deleteEstablishment(Request $request, $id) {
+        $status = $request->input('status');
+        DB::update('update establishments set status = ? where id = ?',[$status,$id]);
+        \Session::flash('delete', 'You have successfully deleted your establishment.');
+        return redirect('establishment_profile');
+    }
 
     public function addEstablishment(Request $request) {
-        
-        $this->validate($request,[
-                    'name' => 'required|max:191',
-                    'contact_person' => 'required|max:191',
-                    'contact_number' => 'required|numeric|min:10',
-                    'address' => 'required|max:191',
-                    'liqour_license' => 'required|max:191',
-                    'hs_license' => 'required|max:191',
-                    'latitude' => 'required|max:191',
-                    'longitude' => 'required|max:191',
-             'photo.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+
+        $this->validate($request, [
+            'name' => 'required|max:191',
+            'contact_person' => 'required|max:191',
+            'contact_number' => 'required|numeric|min:10',
+            'address' => 'required|max:191',
+            'liqour_license' => 'required|max:191',
+            'hs_license' => 'required|max:191',
+            'latitude' => 'required|max:191',
+            'longitude' => 'required|max:191',
+            'photo.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-        
-   
-    
         if ($request->hasfile('photo')) {
 
             foreach ($request->file('photo') as $image) {
@@ -130,31 +72,27 @@ class establishmentController extends Controller {
                 $data[] = $path;
             }
         }
-
         $id = Auth::user()->id;
-                $establisments = new establishments;
-                $establisments->name = $request->input('name');
-                $establisments->contact_person = $request->input('contact_person');
-                $establisments->contact_number = $request->input('contact_number');
-                $establisments->address = $request->input('address');
-                $establisments->establishment_url = $request->input('establishment_url');
-                $establisments->liqour_license = $request->input('liqour_license');
-                $establisments->hs_license = $request->input('hs_license');
-                $establisments->latitude = $request->input('latitude');
-                $establisments->longitude = $request->input('longitude');
-                $establisments->main_picture_url = $data[0];
-                $establisments->picture_2 = $data[1];
-                $establisments->picture_3 = $data[2];
-                $establisments->last_inspection_date = $request->input('last_inspection_date');
-                $establisments->creator_id = $id;
-                $establisments->user_name = "Null";
-                $establisments->save();
-           \Session::flash('message', 'You have successfully added a new establishment!');
-           
-           return redirect('establishment_profile');
+        $establisments = new establishments;
+        $establisments->name = $request->input('name');
+        $establisments->contact_person = $request->input('contact_person');
+        $establisments->contact_number = $request->input('contact_number');
+        $establisments->address = $request->input('address');
+        $establisments->establishment_url = $request->input('establishment_url');
+        $establisments->liqour_license = $request->input('liqour_license');
+        $establisments->hs_license = $request->input('hs_license');
+        $establisments->latitude = $request->input('latitude');
+        $establisments->longitude = $request->input('longitude');
+        $establisments->main_picture_url = $data[0];
+        $establisments->picture_2 = $data[1];
+        $establisments->picture_3 = $data[2];
+        $establisments->last_inspection_date = $request->input('last_inspection_date');
+        $establisments->creator_id = $id;
+        $establisments->user_name = "Null";
+        $establisments->save();
+        \Session::flash('message', 'You have successfully added a new establishment!');
 
-
-//        return view('dashboard.est_profile');
+        return redirect('establishment_profile');
     }
 
     public function updateEstablishment(Request $request, $id) {
@@ -185,24 +123,58 @@ class establishmentController extends Controller {
         return view('dashboard.updateEstablishment', ['establishments' => $establishments]);
     }
 
-    public function getEstablishment() {
-//         $id = Auth::user()->id;
-        $establishments = establishments::select('select * from establishments where creator_id = 2 ');
-
-
-        return view('dashboard.est_profile', ['$establishments' => $establishments]);
+   
+//    <-----------Everything that has to do with events and promotions---------->
+    
+     public function est_promo() {
+        return view('dashboard.est_promo');
+    }
+    public function event_dashboard() {
+        $user = Auth::user();
+        Session::put('id', $user->id);
+        Session::put('email', $user->email);
+        Session::put('first_name', $user->first_name);
+        Session::put('last_name', $user->last_name);
+        return view('dashboard.event_dashboard');
     }
 
-//    protected function validator(array $data) {
-//        return Validator::make($data, [
-//                    'name' => 'required|max:191',
-//                    'contact_person' => 'required|max:191',
-//                    'contact_number' => 'required|numeric',
-//                    'address' => 'required|max:191',
-//                    'liquor_license' => 'required|max:191',
-//                    'hs_license' => 'required|max:191',
-//                    'latitude' => 'required|max:191',
-//                    'longitude' => 'required|max:191',
-//        ]);
-//    }
+    public function event_profile() {
+        return view('dashboard.event_profile');
+    }
+
+    public function event_promo() {
+        return view('dashboard.event_promo');
+    }
+
+//    <-----------Everything that has to do with selecting category or user type---------->
+    
+    public function category() {
+        $user = Auth::user();
+        Session::put('id', $user->id);
+        return view('category');
+    }
+    public function update_owner_type(Request $request) {
+        $id = Session::get('id');
+        $user = User::find($id);
+        $user->user_type = $request->get('user_type');
+        $user->save();
+        return redirect('establishment_dashboard');
+    }
+
+    public function update_event_promoter(Request $request) {
+        $id = Session::get('id');
+        $user = User::find($id);
+        $user->user_type = $request->get('user_type');
+        $user->save();
+        return redirect('event_dashboard');
+    }
+
+    public function update_artist(Request $request) {
+        $id = Session::get('id');
+        $user = User::find($id);
+        $user->user_type = $request->get('user_type');
+        $user->save();
+        return redirect('event_dashboard');
+    }
+
 }
