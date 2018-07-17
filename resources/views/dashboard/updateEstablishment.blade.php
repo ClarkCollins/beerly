@@ -7,17 +7,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ URL::asset('images/favicon.ico') }}" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Establishment Profile</title>
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
         <!-- Custom CSS -->
-        <link href="css/helper.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/spinners.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/helper.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/spinners.css') }}" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
@@ -41,10 +41,10 @@
                     <div class="navbar-header">
                         <a class="navbar-brand" href="index.html">
                             <!-- Logo icon -->
-                            <b><img src="images/bblogo_1.png" alt="homepage" class="dark-logo" /></b>
+                            <b><img src="{{ URL::asset('images/bblogo_1.png') }}" alt="homepage" class="dark-logo" /></b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span><img src="images/bblogolong.png" alt="homepage" class="dark-logo" /></span>
+                            <span><img src="{{ URL::asset('images/bblogolong.png') }}" alt="homepage" class="dark-logo" /></span>
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -117,7 +117,7 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/5.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ URL::asset('images/5.jpg') }}" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -202,7 +202,7 @@
                     
                     <div class="card card-outline-primary">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">New Establishment</h4>
+                                <h4 class="m-b-0 text-white">Update Establishment</h4>
                             </div>
                             <div class="card-body">
                                 <form action="/update_establishment/<?php echo $establishments[0]->id; ?>" method="post">
@@ -212,7 +212,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Establishment Name</label>
-                                                    <input required  type="text" id="name" name="name" class="form-control" value="<?php echo $establishments[0]->name; ?>"autofocus>
+                                                    <input  type="text" id="name" name="name" class="form-control" value="<?php echo $establishments[0]->name; ?>"autofocus>
                                                     @if ($errors->has('name'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('name') }}</strong>
@@ -224,7 +224,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('contact_person') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Person</label>
-                                                    <input required  type="text" id="contact_person" name="contact_person" value="<?php echo $establishments[0]->contact_person; ?>" class="form-control" autofocus>
+                                                    <input  type="text" id="contact_person" name="contact_person" value="<?php echo $establishments[0]->contact_person; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('contact_person'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_person') }}</strong>
@@ -235,7 +235,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Number</label>
-                                                    <input required  type="text" pattern="(?=.*\d).{10,10}"title="this is a numeric field and has to be 10 characters" id="contact_number" name="contact_number" value="<?php echo $establishments[0]->contact_number; ?>" class="form-control" autofocus> </div>
+                                                    <input  type="text" pattern="{10,10}"title="this is a numeric field and has to be 10 characters" id="contact_number" name="contact_number" value="<?php echo $establishments[0]->contact_number; ?>" class="form-control" autofocus> </div>
                                                     @if ($errors->has('contact_number'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_number') }}</strong>
@@ -248,7 +248,7 @@
                                             <div class="col-md-12 ">
                                                 <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}" >
                                                     <label>Address</label>
-                                                    <input required id="autocomplete" name="address"  type="text" class="form-control" value="<?php echo $establishments[0]->address; ?>" autofocus>
+                                                    <input id="autocomplete" name="address"  type="text" class="form-control" value="<?php echo $establishments[0]->address; ?>" autofocus>
                                                     @if ($errors->has('address'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('address') }}</strong>
@@ -262,7 +262,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('liqour_license') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Liquor License</label>
-                                                    <input required  type="text" name="liqour_license" id="liqour_license" value="<?php echo $establishments[0]->liqour_license; ?>" class="form-control" autofocus>
+                                                    <input  type="text" name="liqour_license" id="liqour_license" value="<?php echo $establishments[0]->liqour_license; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('liqour_license'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('liqour_license') }}</strong>
@@ -274,7 +274,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('hs_license') ? ' has-error' : '' }}" >
                                                     <label class="control-label">HS License</label>
-                                                    <input required  type="text" name="hs_license" id="hs_license" value="<?php echo $establishments[0]->hs_license; ?>" class="form-control" autofocus>
+                                                    <input  type="text" name="hs_license" id="hs_license" value="<?php echo $establishments[0]->hs_license; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('hs_license'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('hs_license') }}</strong>
@@ -289,7 +289,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('establishment_url') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Website url</label>
-                                                    <input required type="url" placeholder="e.g. http:www.google.com" pattern="https?://.+" title="Include http://" id="establishment_url" name="establishment_url" class="form-control" value="<?php echo $establishments[0]->establishment_url; ?>" autofocus>
+                                                    <input type="url" placeholder="e.g. http:www.google.com" pattern="https?://.+" title="Include http://" id="establishment_url" name="establishment_url" class="form-control" value="<?php echo $establishments[0]->establishment_url; ?>" autofocus>
                                                     @if ($errors->has('establishment_url'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('establishment_url') }}</strong>
@@ -301,7 +301,7 @@
                                             <div class="col-md-6">
                                                <div class="form-group{{ $errors->has('last_inspection_date') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Last Inspection Date</label>
-                                                    <input required max="<?php echo date('Y-m-d') ?>" type="date" id="last_inspection_date" name="last_inspection_date" value="<?php echo $establishments[0]->last_inspection_date; ?>" class="form-control" autofocus placeholder="dd/mm/yyyy">
+                                                    <input max="<?php echo date('Y-m-d') ?>" type="date" id="last_inspection_date" name="last_inspection_date" value="<?php echo $establishments[0]->last_inspection_date; ?>" class="form-control" autofocus placeholder="dd/mm/yyyy">
                                                     @if ($errors->has('last_inspection_date'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('last_inspection_date') }}</strong>
@@ -319,7 +319,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('latitude') ? ' has-error' : '' }}" >
                                                     <label>Latitude</label>
-                                                    <input required id="latitude" name="latitude" type="text" value="<?php echo $establishments[0]->latitude; ?>" class="form-control" autofocus>
+                                                    <input id="latitude" name="latitude" type="text" value="<?php echo $establishments[0]->latitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('latitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('latitude') }}</strong>
@@ -331,7 +331,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('longitude') ? ' has-error' : '' }}" >
                                                     <label>Longitude</label>
-                                                    <input required id="longitude" name="longitude" type="text" value="<?php echo $establishments[0]->longitude; ?>" class="form-control" autofocus>
+                                                    <input id="longitude" name="longitude" type="text" value="<?php echo $establishments[0]->longitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('longitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('longitude') }}</strong>
@@ -345,46 +345,21 @@
                                         <!--/row-->
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('main_picture_url') ? ' has-error' : '' }}" >
+                                                <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}" >
                                                     <label>Photos</label>
-                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" id="main_picture_url" name="main_picture_url[]" type="file" value="<?php echo $establishments[0]->main_picture_url; ?>" class="form-control" autofocus>
-                                                    @if ($errors->has('main_picture_url'))
+                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" id="main_picture_url" name="photo[]" type="file" value="<?php echo $establishments[0]->main_picture_url; ?>" class="form-control" autofocus>
+                                                    @if ($errors->has('photo'))
                                                     <span class="help-block">
-                                                        <strong>{{ $errors->first('main_picture_url') }}</strong>
+                                                        <strong>{{ $errors->first('photo') }}</strong>
                                                     </span>
                                                     @endif
                                                 </div>
                                             </div>
-                                            <!--/span-->
-<!--                                            <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('picture_2') ? ' has-error' : '' }}" >
-                                                    <label class="control-label">Photo 2</label>
-                                                    <input id="picture_2" name="picture_2" type="file" value="{{ old('picture_2') }}" class="form-control" autofocus>
-                                                    @if ($errors->has('picture_2'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('picture_2') }}</strong>
-                                                    </span>
-                                                    @endif
-                                                    </div>
-                                            </div>
-                                            /span
-                                            
-                                            <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('picture_3') ? ' has-error' : '' }}" >
-                                                    <label>Photo 3</label>
-                                                    <input id="picture_3" name="picture_3" type="file" value="{{ old('picture_3') }}" class="form-control" autofocus>
-                                                    @if ($errors->has('picture_3'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('picture_3') }}</strong>
-                                                    </span>
-                                                    @endif
-                                                </div>
-                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-inverse">Cancel</button>
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>&nbsp;&nbsp;&nbsp;
+                                        <a type="button" class="btn btn-inverse" href="/establishment_profile"> Cancel </a>
                                     </div>
                                 </form>
                             </div>
@@ -404,18 +379,19 @@
         </div>
         <!-- End Wrapper -->
         <!-- All Jquery -->
-        <script src="js/jquery.min.js"></script>
+        <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{ URL::asset('js/popper.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
+        <script src="{{ URL::asset('js/jquery.slimscroll.js') }}"></script>
         <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
+        <script src="{{ URL::asset('js/sidebarmenu.js') }}"></script>
         <!--stickey kit -->
-        <script src="js/sticky-kit.min.js"></script>
+        <script src="{{ URL::asset('js/sticky-kit.min.js') }}"></script>
         <!--Custom JavaScript -->
-        <script src="js/scripts.js"></script>
+        
+        <script src="{{ URL::asset('js/scripts.js') }}"></script>
        <script>
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input);

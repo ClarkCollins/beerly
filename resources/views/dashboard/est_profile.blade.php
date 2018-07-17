@@ -20,6 +20,19 @@
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/spinners.css" rel="stylesheet">
+        <style>
+                                                     #deleteBtn{
+                                                         background: none; 
+                                                         outline: none;
+                                                         border: none;
+                                                         color: red;
+                                                         padding: 1px 1px;
+                                                     }
+                                                     #deleteBtn:hover {
+                                                         cursor: pointer;
+                                                         color: green;
+                                                     }
+        </style>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
@@ -217,6 +230,12 @@
                         <p style='text-align: center; color: black'>{!! session('delete') !!}</p> 
                     </div>
                     @endif
+                    @if (Session::has('update'))
+                    <div class="alert alert-success alert-dismissible">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <p style='text-align: center; color: black'>{!! session('update') !!}</p> 
+                    </div>
+                    @endif
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Establishment</h4>
@@ -224,49 +243,39 @@
                             <a href="/add_establishment_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new establishment</a> 
                             
                             <div class="table-responsive m-t-40">
-                                <table id="myTable" class="table-bordered table-striped">
+                                 <table id="myTable" class="table-bordered table-striped"cellspacing="0" width="100%">
+
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
                                             <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Longitude</th>
+                                            <th>Latitude</th>
                                             <th>Contact Person</th>
                                             <th>Contact Number</th>
-                                            <th>Liqour License</th>
-                                            <th>HS License</th>
-                                            <th>Latitude</th>
-                                            <th>Longitude</th>
+                                            <th>Status</th>
                                             <th>Action</th>
 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($establishments as $key => $establishment)
+                                        @foreach ($establishments as $establishment)
 
                                     @if ($establishment->creator_id == Session::get('id'))
                                     <tr>
-                                        <td> 
-                                            {{ ++$key}}
-                                        </td>
                                         <td>{{ $establishment->name }}</td>
+                                        <td>{{ $establishment->address }}</td>
+                                        <td>{{ $establishment->longitude }}</td>
+                                        <td>{{ $establishment->latitude }}</td>
                                         <td>{{ $establishment->contact_person }}</td>
                                         <td>{{ $establishment->contact_number }}</td>                                                
-                                        <td>{{ $establishment->liqour_license }}</td>
-                                        <td>{{ $establishment->hs_license }}</td>
-                                        <td>{{ $establishment->latitude }}</td>
-                                        <td>{{ $establishment->longitude }}</td>
+                                        <td>{{ $establishment->status }}</td>
                                         <td>
                                             <a href = '/update_establishment_view/{{ $establishment->id }}'>Edit</a>,
-                                            <form action="/delete_establishment/{{ $establishment->id }}" enctype="multipart/form-data"  method="post">
+                                            <form id="myform" action="/delete_establishment/{{ $establishment->id }}" enctype="multipart/form-data"  method="post">
                                                 {{ csrf_field() }}
                                                 <input  hidden name="status" type="text" value='Inactive'>
-                                                <style>
-                                                    #deleteBtn{
-                                                        background: none; 
-                                                        outline: none;
-                                                        color: red;
-                                                    }
-                                                </style>
-                                                <button id='deleteBtn' class='btn' type='submit'>Delete</button>
+                                                <input id="deleteBtn" onclick="return confirm('Are you sure you want to delete this establishment?');" type="submit" value="Delete" />
                                             </form>  
                                         </td>
                                     </tr>
@@ -275,7 +284,9 @@
                                     @endforeach
                                     </tbody>
                                 </table>
- 
+<!-- modal for deleting-->
+
+<!-- /.modal Ending -->
                             </div>
                             
                         </div>
@@ -317,6 +328,25 @@
         <script src="js/buttons.print.min.js"></script>
         <script src="js/datatables-init.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+        $('[data-method]').append(function(){
+    return "\n"+
+    "<form action='"+$(this).attr('href')+"' method='POST' name='delete_item' style='display:none'>\n"+
+    "   <input type='hidden' name='_method' value='"+$(this).attr('data-method')+"'>\n"+
+    "   <input type='hidden' name='_token' value='"+$('meta[name="_token"]').attr('content')+"'>\n"+
+    "</form>\n"
+})
+    .removeAttr('href')
+    .attr('style','cursor:pointer;')
+    .attr('onclick','$(this).find("form").submit();');
+
+/*
+ Generic are you sure dialog
+ */
+$('form[name=delete_item]').submit(function(){
+    return confirm("Are you sure you want to delete this item?");
+});
+        </script>
     </body>
 
 </html>

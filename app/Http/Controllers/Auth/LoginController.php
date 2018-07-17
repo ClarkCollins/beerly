@@ -37,7 +37,7 @@ class LoginController extends Controller
         Session::put('first_name', $user->first_name);
         Session::put('last_name', $user->last_name);
     if($user->user_type=='Establishment Owner'){
-        return redirect()->route('establishment_dashboard') ;
+        return view('dashboard.est_dashboard');
     }elseif($user->user_type=='Event Promoter'){
         return view('dashboard.event_dashboard');
     }
