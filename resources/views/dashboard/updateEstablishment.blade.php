@@ -205,7 +205,7 @@
                                 <h4 class="m-b-0 text-white">Update Establishment</h4>
                             </div>
                             <div class="card-body">
-                                <form action="/update_establishment/<?php echo $establishments[0]->id; ?>" method="post">
+                                <form action="/update_establishment/<?php echo $establishments[0]->id; ?>" enctype="multipart/form-data" method="post">
                                     {{ csrf_field() }}
                                     <div class="form-body">
                                         <div class="row p-t-20">
@@ -347,7 +347,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}" >
                                                     <label>Photos</label>
-                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" id="main_picture_url" name="photo[]" type="file" value="<?php echo $establishments[0]->main_picture_url; ?>" class="form-control" autofocus>
+                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" <?php echo $establishments[0]->longitude; ?> id="photo" name="photo[]" type="file" class="form-control" autofocus>
                                                     @if ($errors->has('photo'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('photo') }}</strong>
@@ -364,8 +364,6 @@
                                 </form>
                             </div>
                         </div>
-                     
-
 
                     <!-- End PAge Content -->
                 </div>

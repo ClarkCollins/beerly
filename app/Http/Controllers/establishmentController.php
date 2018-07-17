@@ -105,54 +105,43 @@ class establishmentController extends Controller {
             'hs_license' => 'required|max:191',
             'latitude' => 'required|max:191',
             'longitude' => 'required|max:191',
-        ]);
+            'photo.*' => 'image|mimes:jpeg,png,jpg,jpe,jfif,jif|max:2048',
+        ],[
+        'photo.*.mimes' => 'Only jpeg,jpg and png images are allowed',
+        'photo.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
+    ]);
         
-//        if ($request->hasfile('photo')) {
-//
-//            foreach ($request->file('photo') as $image) {
-//                $iname = $image->getClientOriginalName();
-//                $path = $image->move(public_path() . '/upload/', $iname);
-//                $data[] = $path;
-//            }
-//        }
-        print_r($request);
+        if ($request->hasfile('photo')) {
+
+            foreach ($request->file('photo') as $image) {
+                
+                $name = $image->getClientOriginalName();
+                $path[] = $image->move(public_path() . '/upload/', $name);
+            }
+        }
+        else{
+        $path[] = "No_Image.png";
+    }
+        $establisments = establishments::find($id);
+        $establisments->name = $request->get('name');
+        $establisments->contact_person = $request->get('contact_person');
+        $establisments->contact_number = $request->get('contact_number');
+        $establisments->establishment_url = $request->get('establishment_url');
+        $establisments->liqour_license = $request->get('liqour_license');
+        $establisments->hs_license = $request->get('hs_license');
+        $establisments->latitude = $request->get('latitude');
+        $establisments->longitude = $request->get('longitude');
+        $establisments->main_picture_url = isset($path[0]) ? $path[0] : null;
+        $establisments->picture_3 = isset($path[1]) ? $path[1] : null;
+        $establisments->picture_2 = isset($path[2]) ? $path[2] : null;
+        $establisments->last_inspection_date = $request->get('last_inspection_date');
+        $establisments->save();
+
+
+        \Session::flash('update', 'You have successfully updated your establishment!');
+        return redirect('establishment_profile');
     
             }
-//        $establisments = establishments::find($id);
-//        $establisments->name = $request->get('name');
-//        $establisments->contact_person = $request->get('contact_person');
-//        $establisments->contact_number = $request->get('contact_number');
-//        $establisments->establishment_url = $request->get('establishment_url');
-//        $establisments->liqour_license = $request->get('liqour_license');
-//        $establisments->hs_license = $request->get('hs_license');
-//        $establisments->latitude = $request->get('latitude');
-//        $establisments->longitude = $request->get('longitude');
-//        $establisments->last_inspection_date = $request->get('last_inspection_date');
-//        $establisments->save();
-//        \Session::flash('update', 'You have successfully updated your establishment!');
-//        return redirect('establishment_profile');
-        
-//        $name = $request->input('name');
-//        $contact_person = $request->input('contact_person');
-//        $contact_number = $request->input('contact_number');
-//        $address = $request->input('address');
-//        $establishment_url = $request->input('establishment_url');
-//        $liqour_license = $request->input('liqour_license');
-//        $hs_license = $request->input('hs_license');
-//        $latitude = $request->input('latitude');
-//        $longitude = $request->input('longitude');
-//        $main_picture_url = $data[0];
-//        $picture_2 = $data[1];
-//        $picture_3 = $data[2];
-//        $last_inspection_date = $request->input('last_inspection_date');
-//        DB::update('update establishments set name = ?,contact_person=?,contact_number=?,address=?,establishment_url=?,'
-//                . 'liqour_license=?,hs_license=?,latitude=?,longitude=?,main_picture_url=?,picture_2=?,picture_3=?,last_inspection_date=?,'
-//                . ' where id = ?', [$name, $contact_person, $contact_number, $address, $establishment_url,
-//            $liqour_license, $hs_license, $latitude, $longitude, $main_picture_url,
-//            $picture_2, $picture_3, $last_inspection_date, $id]);
-        
-        
-    
 
     public function updateEstablishmentView($id) {
         $establishments = DB::select('select * from establishments where id =?', [$id]);
