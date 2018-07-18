@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/establishment_profile', 'establishmentController@est_profile');
 //Route::get('/establishment_promo', 'establishmentController@est_promo');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'],function () {
 Route::get('/category_view', 'establishmentController@category');
 Route::post('/select_user_type', 'establishmentController@update_owner_type');
 Route::post('/select_promoter', 'establishmentController@update_event_promoter');

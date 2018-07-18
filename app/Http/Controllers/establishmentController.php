@@ -62,16 +62,16 @@ class establishmentController extends Controller {
             'hs_license' => 'required|max:191',
             'latitude' => 'required|max:191',
             'longitude' => 'required|max:191',
-            'photo.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo.*' => 'image|mimes:jpeg,png|max:2048',
         ]);
         if ($request->hasfile('photo')) {
 
             foreach ($request->file('photo') as $image) {
                 $name = $image->getClientOriginalName();
-                $path = $image->move(public_path() . '/upload/', $name);
-                $data[] = $path;
+                $path[] = $image->move(public_path() . '/upload/', $name);
             }
         }
+        
         $id = Auth::user()->id;
         $establisments = new establishments;
         $establisments->name = $request->input('name');
@@ -83,15 +83,14 @@ class establishmentController extends Controller {
         $establisments->hs_license = $request->input('hs_license');
         $establisments->latitude = $request->input('latitude');
         $establisments->longitude = $request->input('longitude');
-        $establisments->main_picture_url = $data[0];
-        $establisments->picture_2 = $data[1];
-        $establisments->picture_3 = $data[2];
+        $establisments->main_picture_url = isset($path[0]) ? $path[0] : null;
+        $establisments->picture_2 = isset($path[1]) ? $path[1] : null;
+        $establisments->picture_3 = isset($path[2]) ? $path[2] : null;
         $establisments->last_inspection_date = $request->input('last_inspection_date');
         $establisments->creator_id = $id;
         $establisments->user_name = "Null";
         $establisments->save();
         \Session::flash('message', 'You have successfully added a new establishment!');
-
         return redirect('establishment_profile');
     }
 
@@ -105,26 +104,26 @@ class establishmentController extends Controller {
             'hs_license' => 'required|max:191',
             'latitude' => 'required|max:191',
             'longitude' => 'required|max:191',
-            'photo.*' => 'image|mimes:jpeg,png,jpg,jpe,jfif,jif|max:2048',
-        ],[
-        'photo.*.mimes' => 'Only jpeg,jpg and png images are allowed',
+            'photo.*' => 'image|mimes:jpeg,png|max:2048',
+            'photo.*.image' => 'Only images allowed',
+             'photo.*.mimes' => 'Only jpeg,jpg and png images are allowed',
         'photo.*.max' => 'Sorry! Maximum allowed size for an image is 2MB',
-    ]);
+        ]);
         
         if ($request->hasfile('photo')) {
-
             foreach ($request->file('photo') as $image) {
-                
                 $name = $image->getClientOriginalName();
                 $path[] = $image->move(public_path() . '/upload/', $name);
             }
+            
         }
         else{
-        $path1 = $request->get('path1');
-        $path2 = $request->get('path2');
-        $path3 = $request->get('path3');
-        
-    }
+           
+//                $path[0] = $request->get('photo1');
+//                $path[1] = $request->get('photo2');
+//                $path[2] = $request->get('photo3');
+            
+        }
         $establisments = establishments::find($id);
         $establisments->name = $request->get('name');
         $establisments->contact_person = $request->get('contact_person');
@@ -134,9 +133,10 @@ class establishmentController extends Controller {
         $establisments->hs_license = $request->get('hs_license');
         $establisments->latitude = $request->get('latitude');
         $establisments->longitude = $request->get('longitude');
-        $establisments->main_picture_url = isset($path[0]) ? $path[0] : $path1;
-        $establisments->picture_3 = isset($path[1]) ?  $path[1] : $path2;
-        $establisments->picture_2 = isset($path[2]) ? $path[2] : $path3;
+        $establisments->main_picture_url = isset($path[0]) ? $path[0] : $path[0] = $request->get('photo1');
+        $establisments->picture_2 = isset($path[1]) ? $path[1] : $path[1] = $request->get('photo2');
+        $establisments->picture_3 = isset($path[2]) ? $path[2] : $path[2] = $request->get('photo3');
+
         $establisments->last_inspection_date = $request->get('last_inspection_date');
         $establisments->save();
 

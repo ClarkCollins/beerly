@@ -356,9 +356,9 @@
                                                 </div>
                                             </div>
                                               </div>
-                                        <input name="path1" type="text" value="<?php echo $establishments[0]->main_picture_url; ?>">
-                                        <input name="path2" type="text" value="<?php echo $establishments[0]->picture_2; ?>">
-                                        <input name="path3" type="text" value="<?php echo $establishments[0]->picture_3; ?>">
+                                        <input name="photo1" type="text" value="<?php echo $establishments[0]->main_picture_url; ?>">
+                                        <input name="photo2" type="text" value="<?php echo $establishments[0]->picture_2; ?>">
+                                        <input name="photo3" type="text" value="<?php echo $establishments[0]->picture_3; ?>">
                                                     
                                     </div>
                                     <div class="form-actions">
