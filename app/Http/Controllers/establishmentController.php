@@ -120,7 +120,10 @@ class establishmentController extends Controller {
             }
         }
         else{
-        $path[] = "No_Image.png";
+        $path1 = $request->get('path1');
+        $path2 = $request->get('path2');
+        $path3 = $request->get('path3');
+        
     }
         $establisments = establishments::find($id);
         $establisments->name = $request->get('name');
@@ -131,9 +134,9 @@ class establishmentController extends Controller {
         $establisments->hs_license = $request->get('hs_license');
         $establisments->latitude = $request->get('latitude');
         $establisments->longitude = $request->get('longitude');
-        $establisments->main_picture_url = isset($path[0]) ? $path[0] : null;
-        $establisments->picture_3 = isset($path[1]) ? $path[1] : null;
-        $establisments->picture_2 = isset($path[2]) ? $path[2] : null;
+        $establisments->main_picture_url = isset($path[0]) ? $path[0] : $path1;
+        $establisments->picture_3 = isset($path[1]) ?  $path[1] : $path2;
+        $establisments->picture_2 = isset($path[2]) ? $path[2] : $path3;
         $establisments->last_inspection_date = $request->get('last_inspection_date');
         $establisments->save();
 

@@ -347,7 +347,7 @@
                                             <div class="col-md-4">
                                                 <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}" >
                                                     <label>Photos</label>
-                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" <?php echo $establishments[0]->longitude; ?> id="photo" name="photo[]" type="file" class="form-control" autofocus>
+                                                    <input accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*" multiple="true" value="<?php echo $establishments[0]->main_picture_url; ?>" id="photo" name="photo[]" type="file" class="form-control" autofocus>
                                                     @if ($errors->has('photo'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('photo') }}</strong>
@@ -355,7 +355,11 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                        </div>
+                                              </div>
+                                        <input name="path1" type="text" value="<?php echo $establishments[0]->main_picture_url; ?>">
+                                        <input name="path2" type="text" value="<?php echo $establishments[0]->picture_2; ?>">
+                                        <input name="path3" type="text" value="<?php echo $establishments[0]->picture_3; ?>">
+                                                    
                                     </div>
                                     <div class="form-actions">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>&nbsp;&nbsp;&nbsp;
