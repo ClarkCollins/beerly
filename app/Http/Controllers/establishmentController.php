@@ -158,9 +158,6 @@ class establishmentController extends Controller {
     public function event_dashboard() {
         $user = Auth::user();
         Session::put('id', $user->id);
-        Session::put('email', $user->email);
-        Session::put('first_name', $user->first_name);
-        Session::put('last_name', $user->last_name);
         return view('dashboard.event_dashboard');
     }
 

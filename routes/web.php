@@ -51,4 +51,6 @@ Route::post('/update_promo/{id}', 'promotionController@updatePromo');
 Route::get('/event_dashboard', 'establishmentController@event_dashboard');
 Route::get('/event_profile', 'establishmentController@event_profile');
 Route::get('/event_promo', 'establishmentController@event_promo');
+Route::get('/add_event_view', 'eventController@event_add_view');
+Route::post('/add_event', 'eventController@addEvent');
 });

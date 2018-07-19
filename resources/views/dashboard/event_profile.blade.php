@@ -192,75 +192,70 @@
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Event</li>
                         </ol>
                     </div>
                 </div>
                 <!-- End Bread crumb -->
                 <!-- Container fluid  -->
                 <!-- Container fluid  -->
-                <div class="container-fluid">
-                    <!-- Start Page Content -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>568120</h2>
-                                        <p class="m-b-0">Total Revenue</p>
-                                    </div>
-                                </div>
+               @if (Session::has('success_message'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully added an event!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                    @if (Session::has('delete'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully deleted your event!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                    @if (Session::has('update'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully updated your event!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Event</h4>
+                            <h6 class="card-subtitle">List of Events</h6>
+                            <a href="/add_event_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new event</a> 
+                            
+                            <div class="table-responsive m-t-40">
+                                 <table id="myTable" class="table-bordered table-striped"cellspacing="0" width="100%">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Longitude</th>
+                                            <th>Latitude</th>
+                                            <th>Contact Person</th>
+                                            <th>Contact Number</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>1178</h2>
-                                        <p class="m-b-0">Sales</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>25</h2>
-                                        <p class="m-b-0">Stores</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-user f-s-40 color-danger"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>847</h2>
-                                        <p class="m-b-0">Customer</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
-
-
-                    @if(Session::has('email'))
-                    <p>{{ Session::get('id')}}</p>
-                    @endif
-                     
 
 
                     <!-- End PAge Content -->
@@ -287,6 +282,17 @@
         <script src="js/sticky-kit.min.js"></script>
         <!--Custom JavaScript -->
         <script src="js/scripts.js"></script>
+        
+        <script src="js/datatables.min.js"></script>
+        <script src="js/dataTables.buttons.min.js"></script>
+        <script src="js/buttons.flash.min.js"></script>
+        <script src="js/jszip.min.js"></script>
+        <script src="js/pdfmake.min.js"></script>
+        <script src="js/vfs_fonts.js"></script>
+        <script src="js/buttons.html5.min.js"></script>
+        <script src="js/buttons.print.min.js"></script>
+        <script src="js/datatables-init.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     </body>
 
