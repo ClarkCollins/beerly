@@ -11,35 +11,14 @@
         <link rel="icon" href="images/favicon.ico" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Establishment Profile</title>
+        <title>Promotion</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/spinners.css" rel="stylesheet">
-        <style>
-                                                     #deleteBtn{
-                                                         background: none; 
-                                                         outline: none;
-                                                         border: none;
-                                                         color: red;
-                                                         padding: 1px 1px;
-                                                     }
-                                                     #deleteBtn:hover {
-                                                         cursor: pointer;
-                                                         color: green;
-                                                     }
-                                                      #editBtn{
-                                                         color: #00bfff;
-                                                     }
-                                                     #editBtn:hover {
-                                                         cursor: pointer;
-                                                         color: black;
-                                                     }
-        </style>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
@@ -180,8 +159,8 @@
 
                             </li>
 
-                            <li> <a class="active"  href="/establishment_profile" aria-expanded="false"><i class="fa fa-building"></i>Establishment Profile</a>
-                               
+                            <li> <a  href="establishment_profile" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -211,8 +190,8 @@
                         <h3 class="text-primary">Dashboard</h3> </div>
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/establishment_dashboard">Home</a></li>
-                            <li class="breadcrumb-item active">Establishment</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
                 </div>
@@ -221,145 +200,160 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
-                    
-                    @if (Session::has('message'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully added an establishment!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    @if (Session::has('delete'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully deleted your establishment!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    @if (Session::has('update'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully updated your establishment!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Establishment</h4>
-                            <h6 class="card-subtitle">List of Establishments</h6>
-                            <a href="/add_establishment_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new establishment</a> 
-                            
-                            <div class="table-responsive m-t-40">
-                                 <table id="myTable" class="table-bordered table-striped"cellspacing="0" width="100%">
 
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Longitude</th>
-                                            <th>Latitude</th>
-                                            <th>Contact Person</th>
-                                            <th>Contact Number</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($establishments as $establishment)
-
-                                    @if ($establishment->creator_id == Session::get('id'))
-                                    <tr>
-                                        <td>{{ $establishment->name }}</td>
-                                        <td>{{ $establishment->address }}</td>
-                                        <td>{{ $establishment->longitude }}</td>
-                                        <td>{{ $establishment->latitude }}</td>
-                                        <td>{{ $establishment->contact_person }}</td>
-                                        <td>{{ $establishment->contact_number }}</td>                                                
-                                        <td>{{ $establishment->status }}</td>
-                                        <td>
-                                            <a id="editBtn"href = '/update_establishment_view/{{ $establishment->id }}'>Edit</a>,
-                                            <form id="myform" action="/delete_establishment/{{ $establishment->id }}" enctype="multipart/form-data"  method="post">
-                                                {{ csrf_field() }}
-                                                <input  hidden name="status" type="text" value='Inactive'>
-                                                <input id="deleteBtn" onclick="return confirm('Are you sure you want to delete this establishment?');" type="submit" value="Delete" />
-                                            </form>  
-                                        </td>
-                                    </tr>
-                                    
-                                    @endif
-                                    @endforeach
-                                    </tbody>
-                                </table>
-<!-- modal for deleting-->
-
-<!-- /.modal Ending -->
-                            </div>
-                            
+                    <div class="card card-outline-primary">
+                        <div class="card-header">
+                            <h4 class="m-b-0 text-white">New Promotion</h4>
                         </div>
+                        <div class="card-body">
+                            <form action="add_promos" enctype="multipart/form-data"  method="post">
+                                {{ csrf_field() }}
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}" >
+                                                <br> <label>Promotion Title</label>
+                                                <input id="title" name="title"  type="text" value="{{ old('title') }}" class="form-control" autofocus>
+                                                @if ($errors->has('title'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}" >
+                                                <label class="control-label">Start Date</label>
+                                                <input  type="date" min="<?php echo date('Y-m-d') ?>" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control" autofocus>
+                                                @if ($errors->has('start_date'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('start_date') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}" >
+                                                <label class="control-label">End Date</label>
+                                                <input  type="date" name="end_date" min="<?php echo date('Y-m-d') ?>" id="end_date" value="{{ old('end_date') }}" class="form-control" autofocus>
+                                                @if ($errors->has('end_date'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('end_date') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}" >
+                                                <label class="control-label">Price</label>
+                                                <input  type="number" min="1" title="price of drink" id="price" name="price" class="form-control" value="{{ old('price') }}" autofocus>
+                                                @if ($errors->has('price'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('price') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('establishment_name') ? ' has-error' : '' }}" >
+                                                <label title="e.g. pubs, clubs, tarvens etc." class="control-label">Establishment Name</label>
+                                                <select value="{{ old('establishment_name') }}" title="e.g. pubs, clubs, tarvens etc." name="establishment_name" class="form-control">
+                                                    <option value="">-----Select-----</option>
+                                                    @foreach ($establishments as $establishment)
+                                                    <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('establishment_name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('establishment_name') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('beer_name') ? ' has-error' : '' }}" >
+                                                <label title="e.g. Castle Lager, Castle Lite, Hansa etc." class="control-label">Beer Name</label>
+                                                <select title="e.g. Castle Lager, Castle Lite, Hansa etc." name="beer_name" class="form-control">
+                                                    <option required value="">-----Select-----</option>
+                                                   @foreach ($beers as $beer)
+                                                    <option value="{{ $beer->id }}">{{ $beer->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('beer_name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('beer_name') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>&nbsp;&nbsp;&nbsp;
+                                        <a type="button" class="btn btn-inverse" href="/establishment_promo"> Cancel </a><br><br><br>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+
+
+                        <!-- End PAge Content -->
                     </div>
-
-
-                    <!-- End PAge Content -->
+                    <!-- End Container fluid  -->
+                    <!-- End Container fluid  -->
+                    <!-- footer -->
+                    <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
+                    <!-- End footer -->
                 </div>
-                <!-- End Container fluid  -->
-                <!-- End Container fluid  -->
-                <!-- footer -->
-                <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
-                <!-- End footer -->
+                <!-- End Page wrapper  -->
             </div>
-            <!-- End Page wrapper  -->
-        </div>
-        <!-- End Wrapper -->
-        <!-- All Jquery -->
-        <script src="js/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
-        <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
-        <!--stickey kit -->
-        <script src="js/sticky-kit.min.js"></script>
-        <!--Custom JavaScript -->
-        <script src="js/scripts.js"></script>
+            <!-- End Wrapper -->
+            <!-- All Jquery -->
+            <script src="js/jquery.min.js"></script>
+            <!-- Bootstrap tether Core JavaScript -->
+            <script src="js/popper.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <!-- slimscrollbar scrollbar JavaScript -->
+            <script src="js/jquery.slimscroll.js"></script>
+            <!--Menu sidebar -->
+            <script src="js/sidebarmenu.js"></script>
+            <!--stickey kit -->
+            <script src="js/sticky-kit.min.js"></script>
+            <!--Custom JavaScript -->
+            <script src="js/scripts.js"></script>
+            <script>
+            function DateCheck();
+//{
+//  var StartDate= document.getElementById('start_date').value;
+//  var EndDate= document.getElementById('end_date').value;
+//  var eDate = new Date(EndDate);
+//  var sDate = new Date(StartDate);
+//  if(StartDate!== '' && StartDate!== '' && sDate> eDate)
+//    {
+//    alert("Please ensure that the End Date is greater than or equal to the Start Date.");
+//    return false;
+//    }
+//}
+            </script>
 
-        <script src="js/datatables.min.js"></script>
-        <script src="js/dataTables.buttons.min.js"></script>
-        <script src="js/buttons.flash.min.js"></script>
-        <script src="js/jszip.min.js"></script>
-        <script src="js/pdfmake.min.js"></script>
-        <script src="js/vfs_fonts.js"></script>
-        <script src="js/buttons.html5.min.js"></script>
-        <script src="js/buttons.print.min.js"></script>
-        <script src="js/datatables-init.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script>
-        $('[data-method]').append(function(){
-    return "\n"+
-    "<form action='"+$(this).attr('href')+"' method='POST' name='delete_item' style='display:none'>\n"+
-    "   <input type='hidden' name='_method' value='"+$(this).attr('data-method')+"'>\n"+
-    "   <input type='hidden' name='_token' value='"+$('meta[name="_token"]').attr('content')+"'>\n"+
-    "</form>\n"
-})
-    .removeAttr('href')
-    .attr('style','cursor:pointer;')
-    .attr('onclick','$(this).find("form").submit();');
-
-/*
- Generic are you sure dialog
- */
-$('form[name=delete_item]').submit(function(){
-    return confirm("Are you sure you want to delete this item?");
-});
-        </script>
     </body>
 
 </html>

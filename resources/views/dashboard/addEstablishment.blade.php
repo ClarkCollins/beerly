@@ -160,8 +160,8 @@
 
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
-
+                            <li> <a class="active" href="/establishment_profile" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                                
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -357,36 +357,11 @@
                                                     @endif
                                                 </div>
                                             </div>
-                                            <!--/span-->
-<!--                                            <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('picture_2') ? ' has-error' : '' }}" >
-                                                    <label class="control-label">Photo 2</label>
-                                                    <input id="picture_2" name="picture_2" type="file" value="{{ old('picture_2') }}" class="form-control" autofocus>
-                                                    @if ($errors->has('picture_2'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('picture_2') }}</strong>
-                                                    </span>
-                                                    @endif
-                                                    </div>
-                                            </div>
-                                            /span
-                                            
-                                            <div class="col-md-4">
-                                                <div class="form-group{{ $errors->has('picture_3') ? ' has-error' : '' }}" >
-                                                    <label>Photo 3</label>
-                                                    <input id="picture_3" name="picture_3" type="file" value="{{ old('picture_3') }}" class="form-control" autofocus>
-                                                    @if ($errors->has('picture_3'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('picture_3') }}</strong>
-                                                    </span>
-                                                    @endif
-                                                </div>
-                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="form-actions">
                                         <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-inverse">Cancel</button>
+                                        <a type="button" class="btn btn-inverse" href="/establishment_profile"> Cancel </a>
                                     </div>
                                 </form>
                             </div>

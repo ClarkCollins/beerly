@@ -158,7 +158,7 @@
 
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a  href="/establishment_profile" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -356,9 +356,9 @@
                                                 </div>
                                             </div>
                                               </div>
-                                        <input name="photo1" type="text" value="<?php echo $establishments[0]->main_picture_url; ?>">
-                                        <input name="photo2" type="text" value="<?php echo $establishments[0]->picture_2; ?>">
-                                        <input name="photo3" type="text" value="<?php echo $establishments[0]->picture_3; ?>">
+                                        <input name="photo1" hidden type="text" value="<?php echo $establishments[0]->main_picture_url; ?>">
+                                        <input name="photo2" hidden type="text" value="<?php echo $establishments[0]->picture_2; ?>">
+                                        <input name="photo3" hidden type="text" value="<?php echo $establishments[0]->picture_3; ?>">
                                                     
                                     </div>
                                     <div class="form-actions">

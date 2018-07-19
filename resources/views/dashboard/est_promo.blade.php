@@ -18,12 +18,33 @@
         <!-- Custom CSS -->
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
         <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+        <style>
+                                                     #deleteBtn{
+                                                         background: none; 
+                                                         outline: none;
+                                                         border: none;
+                                                         color: red;
+                                                         padding: 1px 1px;
+                                                     }
+                                                     #deleteBtn:hover {
+                                                         cursor: pointer;
+                                                         color: green;
+                                                     }
+                                                     #editBtn{
+                                                         color: #00bfff;
+                                                     }
+                                                     #editBtn:hover {
+                                                         cursor: pointer;
+                                                         color: black;
+                                                     }
+        </style>
     </head>
 
     <body class="fix-header">
@@ -155,12 +176,12 @@
 
                             </li>
 
-                            <li> <a  href="#" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
+                            <li> <a class="active"  href="#" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
 
                             </li>
 
-                            <li> <a  href="/establishment_profile" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
-
+                            <li> <a href="/establishment_profile" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                                
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -190,7 +211,7 @@
                         <h3 class="text-primary">Dashboard</h3> </div>
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/establishment_dashboard">Home</a></li>
                             <li class="breadcrumb-item active">Promotion</li>
                         </ol>
                     </div>
@@ -199,11 +220,38 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
+                    @if (Session::has('success_message'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully added a promotion!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                     @if (Session::has('delete'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully deleted your promotion!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                    @if (Session::has('update_message'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully updated your promotion!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Promotion</h4>
                             <h6 class="card-subtitle">List of Promotions</h6>
-                            <button type="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new promotion</button>
+                            <a href="/add_promos_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new promotion</a>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table-bordered table-striped">
                                     <thead>
@@ -220,207 +268,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($promotions as $promotion)
+                                        
+                                        @if ($promotion->creator_id == Session::get('id'))
+                                        
                                         <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>                                                
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
+                                            <td>{{ $promotion->title }}</td>
+                                            @foreach ($beers as $beer)
+                                            @if ($promotion->beer_id == $beer->id)
+                                            <td>{{ $beer->name }}</td> 
+                                            @endif
+                                            @endforeach
+                                            @foreach ($establishments as $establishment)
+                                            @if ($promotion->establishment_id == $establishment->id)
+                                            <td>{{ $establishment->name }}</td> 
+                                            @endif
+                                            @endforeach
+                                            <td>{{ $promotion->start_date }}</td>
+                                            <td>{{ $promotion->end_date }}</td>
+                                            <td>{{ $promotion->status }}</td>
+                                            <td>R {{ $promotion->price }}</td>
+                                            <td>
+                                                <a id="editBtn" href = '/update_promo_view/{{ $promotion->id }}'>Edit</a>,
+                                                <form id="myform" action="/delete_promo/{{ $promotion->id }}" enctype="multipart/form-data"  method="post">
+                                                    {{ csrf_field() }}
+                                                    <input  hidden name="status" type="text" value='Inactive'>
+                                                    <input id="deleteBtn" onclick="confirm('Are you sure you want to delete this promotion?');" type="submit" value="Delete" />
+                                                </form>  
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>Garrett Winters</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ashton Cox</td>
-                                            <td>Junior Technical Author</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Senior Javascript Developer</td>
-                                            <td>Edinburgh</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Airi Satou</td>
-                                            <td>Accountant</td>
-                                            <td>Tokyo</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brielle Williamson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>New York</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Herrod Chandler</td>
-                                            <td>Sales Assistant</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Rhona Davidson</td>
-                                            <td>Integration Specialist</td>
-                                            <td>Tokyo</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Colleen Hurst</td>
-                                            <td>Javascript Developer</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sonya Frost</td>
-                                            <td>Software Engineer</td>
-                                            <td>Edinburgh</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jena Gaines</td>
-                                            <td>Office Manager</td>
-                                            <td>London</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Quinn Flynn</td>
-                                            <td>Support Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Haley Kennedy</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tatyana Fitzpatrick</td>
-                                            <td>Regional Director</td>
-                                            <td>London</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Silva</td>
-                                            <td>Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Paul Byrd</td>
-                                            <td>Chief Financial Officer (CFO)</td>
-                                            <td>New York</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gloria Little</td>
-                                            <td>Systems Administrator</td>
-                                            <td>New York</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bradley Greer</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dai Rios</td>
-                                            <td>Personnel Lead</td>
-                                            <td>Edinburgh</td>
-                                            <td>2011/04/25</td>
-                                            <td>2011/04/25</td>
-                                            <td>active</td>
-                                            <td>$10</td>
-                                            <td>Add, Edit, Delete</td>
-                                        </tr>
-
+                                        @endif
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -150,7 +150,7 @@
 
 
 
-                            <li> <a  href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a class="active"  href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 
@@ -158,8 +158,8 @@
 
                             </li>
 
-                            <li> <a  href="/establishment_profile" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
-
+                            <li> <a  href="/establishment_profile" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                                
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -243,9 +243,6 @@
 
                     </div>
                     <br>
-                    @if(Session::has('email')))  
-                    <p>{{ Session::get('email')}}</p>
-                    @endif
 
 
 

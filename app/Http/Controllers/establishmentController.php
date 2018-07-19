@@ -129,6 +129,7 @@ class establishmentController extends Controller {
         $establisments->contact_person = $request->get('contact_person');
         $establisments->contact_number = $request->get('contact_number');
         $establisments->establishment_url = $request->get('establishment_url');
+        $establisments->address = $request->get('address');
         $establisments->liqour_license = $request->get('liqour_license');
         $establisments->hs_license = $request->get('hs_license');
         $establisments->latitude = $request->get('latitude');
@@ -150,13 +151,10 @@ class establishmentController extends Controller {
         $establishments = DB::select('select * from establishments where id =?', [$id]);
         return view('dashboard.updateEstablishment', ['establishments' => $establishments]);
     }
-
-   
+    
 //    <-----------Everything that has to do with events and promotions---------->
     
-     public function est_promo() {
-        return view('dashboard.est_promo');
-    }
+     
     public function event_dashboard() {
         $user = Auth::user();
         Session::put('id', $user->id);
