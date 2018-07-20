@@ -156,8 +156,7 @@ class establishmentController extends Controller {
     
      
     public function event_dashboard() {
-        $promotions= promotions::count();
-        return view('dashboard.event_dashboard',['promotions' => $promotions]);
+        return view('dashboard.event_dashboard');
     }
 
     

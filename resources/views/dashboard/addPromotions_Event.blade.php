@@ -155,7 +155,7 @@
 
                             </li>
 
-                            <li> <a  href="/event_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
+                            <li> <a class="active" href="/event_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
 
                             </li>
 

@@ -151,7 +151,7 @@
 
 
 
-                            <li> <a  href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a class="active"   href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 

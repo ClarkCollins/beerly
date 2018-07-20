@@ -180,7 +180,7 @@
 
                             </li>
 
-                            <li> <a  href="#" ><i class="fa fa-calendar" aria-hidden="true"></i><span class="show-menu">Event Profile </span></a>
+                            <li> <a  class="active"  href="#" ><i class="fa fa-calendar" aria-hidden="true"></i><span class="show-menu">Event Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
