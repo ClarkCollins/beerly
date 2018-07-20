@@ -156,18 +156,11 @@ class establishmentController extends Controller {
     
      
     public function event_dashboard() {
-        $user = Auth::user();
-        Session::put('id', $user->id);
-        return view('dashboard.event_dashboard');
+        $promotions= promotions::count();
+        return view('dashboard.event_dashboard',['promotions' => $promotions]);
     }
 
-    public function event_profile() {
-        return view('dashboard.event_profile');
-    }
-
-    public function event_promo() {
-        return view('dashboard.event_promo');
-    }
+    
 
 //    <-----------Everything that has to do with selecting category or user type---------->
     

@@ -49,8 +49,16 @@ Route::get('/update_promo_view/{id}', 'promotionController@updatePromoView');
 Route::post('/update_promo/{id}', 'promotionController@updatePromo');
 
 Route::get('/event_dashboard', 'establishmentController@event_dashboard');
-Route::get('/event_profile', 'establishmentController@event_profile');
-Route::get('/event_promo', 'establishmentController@event_promo');
+Route::get('/event_profile', 'eventController@event_profile');
+Route::get('/event_promo', 'eventController@event_promo');
 Route::get('/add_event_view', 'eventController@event_add_view');
 Route::post('/add_event', 'eventController@addEvent');
+Route::post('/delete_event/{id}', 'eventController@deleteEvent');
+Route::get('/update_event_view/{id}', 'eventController@updateEventView');
+Route::post('/update_event/{id}', 'eventController@updateEvent');
+Route::get('/add_promos_events_view', 'eventController@addPromo_view');
+Route::post('/add_promos_events', 'eventController@addPromo');
+Route::get('/update_promo_view_event/{id}', 'eventController@updatePromoView');
+Route::post('/update_promo_event/{id}', 'eventController@updatePromo');
+Route::post('/delete_promo_event/{id}', 'eventController@deletePromotion');
 });

@@ -293,7 +293,7 @@
                                                 <form id="myform" action="/delete_promo/{{ $promotion->id }}" enctype="multipart/form-data"  method="post">
                                                     {{ csrf_field() }}
                                                     <input  hidden name="status" type="text" value='Inactive'>
-                                                    <input id="deleteBtn" onclick="confirm('Are you sure you want to delete this promotion?');" type="submit" value="Delete" />
+                                                    <input id="deleteBtn" onclick="return confirm('Are you sure you want to delete this promotion?');" type="submit" value="Delete" />
                                                 </form>  
                                             </td>
                                         </tr>

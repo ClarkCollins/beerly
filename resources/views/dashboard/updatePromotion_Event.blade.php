@@ -8,43 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ URL::asset('images/favicon.ico') }}" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Promotion</title>
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- Custom CSS -->
-        <link href="css/helper.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/helper.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/spinners.css') }}" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
         <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-        <style>
-                                                     #deleteBtn{
-                                                         background: none; 
-                                                         outline: none;
-                                                         border: none;
-                                                         color: red;
-                                                         padding: 1px 1px;
-                                                     }
-                                                     #deleteBtn:hover {
-                                                         cursor: pointer;
-                                                         color: green;
-                                                     }
-                                                      #editBtn{
-                                                         color: #00bfff;
-                                                     }
-                                                     #editBtn:hover {
-                                                         cursor: pointer;
-                                                         color: black;
-                                                     }
-        </style>
     </head>
 
     <body class="fix-header">
@@ -62,10 +42,10 @@
                     <div class="navbar-header">
                         <a class="navbar-brand" href="index.html">
                             <!-- Logo icon -->
-                            <b><img src="images/bblogo_1.png" alt="homepage" class="dark-logo" /></b>
+                            <b><img src="{{ URL::asset('images/bblogo_1.png') }}" alt="homepage" class="dark-logo" /></b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span><img src="images/bblogolong.png" alt="homepage" class="dark-logo" /></span>
+                            <span><img src="{{ URL::asset('images/bblogolong.png') }}" alt="homepage" class="dark-logo" /></span>
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -138,7 +118,7 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/5.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ URL::asset('images/5.jpg') }}" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -149,8 +129,7 @@
                                                        document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 {{ csrf_field() }}
-                                            </form>
-                                        </li>
+                                            </form></li>
                                     </ul>
                                 </div>
                             </li>
@@ -212,7 +191,7 @@
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Promotion</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
                 </div>
@@ -221,130 +200,154 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
-                     @if (Session::has('success_message'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully added a promotion!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    @if (Session::has('delete'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully deleted your promotion!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    @if (Session::has('update_message'))
-                    <script>
-                                                swal({
-                              title: "",
-                              text: "You have successfully updated your promotion!",
-                              icon: "success"
-                            });
-                    </script>
-                    @endif
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Promotion</h4>
-                            <h6 class="card-subtitle">List of Promotions</h6>
-                            <a href="/add_promos_events_view" role="button" class="btn btn-primary btn-md m-b-10 m-l-5 pull-right">Add new promotion</a>
-                            <div class="table-responsive m-t-40">
-                                <table id="myTable" class="table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Beer</th>
-                                            <th>Establishment</th>
-                                            <th>Start Date</th>
-                                            <th>End date</th>
-                                            <th>Status</th>
-                                            <th>Price</th>
-                                            <th>Action</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($promotions as $promotion)
-                                        
-                                        @if ($promotion->creator_id == Session::get('id'))
-                                        
-                                        <tr>
-                                            <td>{{ $promotion->title }}</td>
-                                            @foreach ($beers as $beer)
-                                            @if ($promotion->beer_id == $beer->id)
-                                            <td>{{ $beer->name }}</td> 
-                                            @endif
-                                            @endforeach
-                                            @foreach ($establishments as $establishment)
-                                            @if ($promotion->establishment_id == $establishment->id)
-                                            <td>{{ $establishment->name }}</td> 
-                                            @endif
-                                            @endforeach
-                                            <td>{{ $promotion->start_date }}</td>
-                                            <td>{{ $promotion->end_date }}</td>
-                                            <td>{{ $promotion->status }}</td>
-                                            <td>R {{ $promotion->price }}</td>
-                                            <td>
-                                                <a id="editBtn" href = '/update_promo_view_event/{{ $promotion->id }}'>Edit</a>,
-                                                <form id="myform" action="/delete_promo_event/{{ $promotion->id }}" enctype="multipart/form-data"  method="post">
-                                                    {{ csrf_field() }}
-                                                    <input  hidden name="status" type="text" value='Inactive'>
-                                                    <input id="deleteBtn" onclick="return confirm('Are you sure you want to delete this promotion?');" type="submit" value="Delete" />
-                                                </form>  
-                                            </td>
-                                        </tr>
-                                        @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="card card-outline-primary">
+                        <div class="card-header">
+                            <h4 class="m-b-0 text-white">Update Promotion</h4>
                         </div>
+                        <div class="card-body">
+                            <form action="/update_promo_event/<?php echo $promotions[0]->id; ?>" enctype="multipart/form-data"  method="post">
+                                {{ csrf_field() }}
+                                <div class="form-body">
+
+                                    <div class="row">
+                                        <div class="col-md-12 ">
+                                            <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}" >
+                                                <br> <label>Promotion Title</label>
+                                                <input id="title" name="title"  type="text" value="<?php echo $promotions[0]->title; ?>" class="form-control" autofocus>
+                                                @if ($errors->has('title'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}" >
+                                                <label class="control-label">Start Date</label>
+                                                <input  type="date" min="<?php echo date('Y-m-d') ?>" name="start_date" id="start_date" value="<?php echo $promotions[0]->start_date; ?>" class="form-control" autofocus>
+                                                @if ($errors->has('start_date'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('start_date') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}" >
+                                                <label class="control-label">End Date</label>
+                                                <input  type="date" name="end_date" min="<?php echo date('Y-m-d') ?>" id="end_date" value="<?php echo $promotions[0]->end_date; ?>" class="form-control" autofocus>
+                                                @if ($errors->has('end_date'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('end_date') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}" >
+                                                <label class="control-label">Price</label>
+                                                <input  type="number" min="1" title="price of drink" id="price" name="price" class="form-control" value="<?php echo $promotions[0]->price; ?>" autofocus>
+                                                @if ($errors->has('price'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('price') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('establishment_name') ? ' has-error' : '' }}" >
+                                                <label title="e.g. pubs, clubs, tarvens etc." class="control-label">Establishment Name</label>
+                                                <select value="{{ old('establishment_name') }}" title="e.g. pubs, clubs, tarvens etc." name="establishment_name" class="form-control">
+                                                    
+                                                    @foreach ($establishments as $establishment)
+                                                    @if ($promotions[0]->establishment_id == $establishment->id)
+                                                    <option selected value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                                                    @else
+                                                    <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('establishment_name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('establishment_name') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group{{ $errors->has('beer_name') ? ' has-error' : '' }}" >
+                                                <label title="e.g. Castle Lager, Castle Lite, Hansa etc." class="control-label">Beer Name</label>
+                                                <select title="e.g. Castle Lager, Castle Lite, Hansa etc." name="beer_name" class="form-control">
+                                                    @foreach ($beers as $beer)
+                                                    @if ($promotions[0]->beer_id == $beer->id)
+                                                    <option selected value="{{ $beer->id }}">{{ $beer->name }}</option>
+                                                    @else
+                                                    <option value="{{ $beer->id }}">{{ $beer->name }}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('beer_name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('beer_name') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+
+                                            <!--/span-->
+                                        </div>
+                                        <!--/row-->
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>&nbsp;&nbsp;&nbsp;
+                                        <a type="button" class="btn btn-inverse" href="/event_promo"> Cancel </a><br><br><br>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+
+
+                        <!-- End PAge Content -->
                     </div>
-                    </div>
-
-
-
-
-
-                    <!-- End PAge Content -->
+                    <!-- End Container fluid  -->
+                    <!-- End Container fluid  -->
+                    <!-- footer -->
+                    <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
+                    <!-- End footer -->
                 </div>
-                <!-- End Container fluid  -->
-                <!-- End Container fluid  -->
-                <!-- footer -->
-                <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
-                <!-- End footer -->
+                <!-- End Page wrapper  -->
             </div>
-            <!-- End Page wrapper  -->
-        </div>
-        <!-- End Wrapper -->
-        <!-- All Jquery -->
-        <script src="js/jquery.min.js"></script>
+            <!-- End Wrapper -->
+            <!-- All Jquery -->
+            <!-- All Jquery -->
+        <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{ URL::asset('js/popper.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
+        <script src="{{ URL::asset('js/jquery.slimscroll.js') }}"></script>
         <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
+        <script src="{{ URL::asset('js/sidebarmenu.js') }}"></script>
         <!--stickey kit -->
-        <script src="js/sticky-kit.min.js"></script>
+        <script src="{{ URL::asset('js/sticky-kit.min.js') }}"></script>
         <!--Custom JavaScript -->
-        <script src="js/scripts.js"></script>
-
-        <script src="js/datatables.min.js"></script>
-        <script src="js/dataTables.buttons.min.js"></script>
-        <script src="js/buttons.flash.min.js"></script>
-        <script src="js/jszip.min.js"></script>
-        <script src="js/pdfmake.min.js"></script>
-        <script src="js/vfs_fonts.js"></script>
-        <script src="js/buttons.html5.min.js"></script>
-        <script src="js/buttons.print.min.js"></script>
-        <script src="js/datatables-init.js"></script>
+        
+        <script src="{{ URL::asset('js/scripts.js') }}"></script>
 
     </body>
 

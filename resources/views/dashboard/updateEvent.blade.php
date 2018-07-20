@@ -8,18 +8,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="{{ URL::asset('images/favicon.ico') }}" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Event</title>
         <!-- Bootstrap Core CSS -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
         <!-- Custom CSS -->
-        <link href="css/helper.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">
-        <link href="css/spinners.css" rel="stylesheet">
+        <link href="{{ URL::asset('css/helper.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ URL::asset('css/spinners.css') }}" rel="stylesheet">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
@@ -43,10 +43,10 @@
                     <div class="navbar-header">
                         <a class="navbar-brand" href="index.html">
                             <!-- Logo icon -->
-                            <b><img src="images/bblogo_1.png" alt="homepage" class="dark-logo" /></b>
+                            <b><img src="{{ URL::asset('images/bblogo_1.png')}}" alt="homepage" class="dark-logo" /></b>
                             <!--End Logo icon -->
                             <!-- Logo text -->
-                            <span><img src="images/bblogolong.png" alt="homepage" class="dark-logo" /></span>
+                            <span><img src="{{ URL::asset('images/bblogolong.png')}}" alt="homepage" class="dark-logo" /></span>
                         </a>
                     </div>
                     <!-- End Logo -->
@@ -119,7 +119,7 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/5.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{ URL::asset('images/5.jpg') }}" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -202,10 +202,10 @@
                     <!-- Start Page Content -->
                 <div class="card card-outline-primary">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">New Event</h4>
+                            <h4 class="m-b-0 text-white">Update Event</h4>
                         </div>
                         <div class="card-body">
-                            <form action="/add_event" enctype="multipart/form-data"  method="post">
+                            <form action="/update_event/<?php echo $events[0]->id; ?>"enctype="multipart/form-data"  method="post">
                                 {{ csrf_field() }}
                                 <div class="form-body">
 
@@ -213,7 +213,7 @@
                                         <div class="col-md-5 ">
                                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}" >
                                                 <br> <label>Event Title</label>
-                                                <input required maxlength="191" id="title" name="title"  type="text" value="{{ old('title') }}" class="form-control" autofocus>
+                                                <input required maxlength="191" id="title" name="title"  type="text" value="<?php echo $events[0]->title; ?>" class="form-control" autofocus>
                                                 @if ($errors->has('title'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('title') }}</strong>
@@ -224,7 +224,7 @@
                                         <div class="col-md-7 ">
                                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}" >
                                                 <br> <label>Description</label>
-                                                <input required maxlength="191" id="description" name="description"  type="text" value="{{ old('description') }}" class="form-control" autofocus>
+                                                <input required maxlength="191" id="description" name="description"  type="text" value="<?php echo $events[0]->description; ?>" class="form-control" autofocus>
                                                 @if ($errors->has('description'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('description') }}</strong>
@@ -238,7 +238,7 @@
                                             <div class="col-md-12 ">
                                                 <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}" >
                                                     <label>Address</label>
-                                                    <input required maxlength="191"id="autocomplete" name="address"  type="text" value="{{ old('address') }}" class="form-control" autofocus>
+                                                    <input required maxlength="191"id="autocomplete" name="address"  type="text" value="<?php echo $events[0]->address; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('address'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('address') }}</strong>
@@ -252,7 +252,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group{{ $errors->has('start_date') ? ' has-error' : '' }}" >
                                                 <label class="control-label">Start Date</label>
-                                                <input required  type="date" min="<?php echo date('Y-m-d') ?>" name="start_date" id="start_date" value="{{ old('start_date') }}" class="form-control" autofocus>
+                                                <input required  type="date" min="<?php echo date('Y-m-d') ?>" name="start_date" id="start_date" value="<?php echo $events[0]->start_date; ?>" class="form-control" autofocus>
                                                 @if ($errors->has('start_date'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('start_date') }}</strong>
@@ -264,7 +264,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group{{ $errors->has('end_date') ? ' has-error' : '' }}" >
                                                 <label class="control-label">End Date</label>
-                                                <input required  type="date" name="end_date" min="<?php echo date('Y-m-d') ?>" id="end_date" value="{{ old('end_date') }}" class="form-control" autofocus>
+                                                <input required  type="date" name="end_date" min="<?php echo date('Y-m-d') ?>" id="end_date" value="<?php echo $events[0]->end_date; ?>" class="form-control" autofocus>
                                                 @if ($errors->has('end_date'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('end_date') }}</strong>
@@ -279,7 +279,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('contact_person') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Person</label>
-                                                    <input required maxlength="191"  type="text" name="contact_person" id="contact_person" value="{{ old('contact_person') }}" class="form-control" autofocus>
+                                                    <input required maxlength="191"  type="text" name="contact_person" id="contact_person" value="<?php echo $events[0]->contact_person; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('contact_person'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_person') }}</strong>
@@ -291,7 +291,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Contact Number</label>
-                                                    <input required maxlength="191"  type="text" name="contact_number" id="contact_number" value="{{ old('contact_number') }}" class="form-control" autofocus>
+                                                    <input required maxlength="191"  type="text" name="contact_number" id="contact_number" value="<?php echo $events[0]->contact_number; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('contact_number'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('contact_number') }}</strong>
@@ -305,7 +305,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('longitude') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Longitude</label>
-                                                    <input required maxlength="191" type="text" name="longitude" id="longitude" value="{{ old('longitude') }}" class="form-control" autofocus>
+                                                    <input required maxlength="191" type="text" name="longitude" id="longitude" value="<?php echo $events[0]->longitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('longitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('longitude') }}</strong>
@@ -317,7 +317,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('latitude') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Latitude</label>
-                                                    <input required maxlength="191"  type="text" name="latitude" id="latitude" value="{{ old('latitude') }}" class="form-control" autofocus>
+                                                    <input required maxlength="191"  type="text" name="latitude" id="latitude" value="<?php echo $events[0]->latitude; ?>" class="form-control" autofocus>
                                                     @if ($errors->has('latitude'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('latitude') }}</strong>
@@ -332,7 +332,7 @@
                                         <div class="col-md-6">
                                                 <div class="form-group{{ $errors->has('event_url') ? ' has-error' : '' }}" >
                                                     <label class="control-label">Event url</label>
-                                                    <input maxlength="191"  type="url" placeholder="e.g. http://www.google.com" pattern="https?://.+" title="Include http://" id="event_url" name="event_url" class="form-control" value="{{ old('event_url') }}" autofocus>
+                                                    <input required maxlength="191"  type="url" placeholder="e.g. http://www.google.com" pattern="https?://.+" title="Include http://" id="event_url" name="event_url" class="form-control" value="<?php echo $events[0]->event_url; ?>" autofocus>
                                                     @if ($errors->has('event_url'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('event_url') }}</strong>
@@ -346,8 +346,12 @@
                                                 <label title="e.g. pubs, clubs, tarvens etc." class="control-label">Establishment Name</label>
                                                 <select required value="{{ old('establishment_name') }}" title="e.g. pubs, clubs, tarvens etc." name="establishment_name" class="form-control">
                                                     <option value="">-----Select-----</option>
-                                                    @foreach ($establishments as $establishment)
+                                                   @foreach ($establishments as $establishment)
+                                                    @if ($events[0]->establishment_id == $establishment->id)
+                                                    <option selected value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                                                    @else
                                                     <option value="{{ $establishment->id }}">{{ $establishment->name }}</option>
+                                                    @endif
                                                     @endforeach
                                                 </select>
                                                 @if ($errors->has('establishment_name'))
@@ -373,8 +377,11 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    <input name="photo1" hidden type="text" value="<?php echo $events[0]->main_picture_url; ?>">
+                                        <input name="photo2" hidden type="text" value="<?php echo $events[0]->picture_2; ?>">
+                                        <input name="photo3" hidden type="text" value="<?php echo $events[0]->picture_3; ?>">
                                     <div class="form-actions">
-                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>&nbsp;&nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>&nbsp;&nbsp;&nbsp;
                                         <a type="button" class="btn btn-inverse" href="/event_profile"> Cancel </a><br><br><br>
                                     </div>
                                 </div>
@@ -394,18 +401,19 @@
         </div>
         <!-- End Wrapper -->
         <!-- All Jquery -->
-        <script src="js/jquery.min.js"></script>
+        <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <!-- Bootstrap tether Core JavaScript -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{ URL::asset('js/popper.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
         <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
+        <script src="{{ URL::asset('js/jquery.slimscroll.js') }}"></script>
         <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
+        <script src="{{ URL::asset('js/sidebarmenu.js') }}"></script>
         <!--stickey kit -->
-        <script src="js/sticky-kit.min.js"></script>
+        <script src="{{ URL::asset('js/sticky-kit.min.js') }}"></script>
         <!--Custom JavaScript -->
-        <script src="js/scripts.js"></script>
+        
+        <script src="{{ URL::asset('js/scripts.js') }}"></script>
         <script>
       var input = document.getElementById('autocomplete');
       var autocomplete = new google.maps.places.Autocomplete(input);

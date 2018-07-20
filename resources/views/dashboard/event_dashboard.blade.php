@@ -159,7 +159,7 @@
 
                             </li>
 
-                            <li> <a  href="/event_profile" ><i class="fa fa-building"></i><span class="show-menu">Events Profile </span></a>
+                            <li> <a  href="/event_profile" ><i class="fa fa-calendar" aria-hidden="true"></i><span class="show-menu">Events Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -244,12 +244,6 @@
 
                     </div>
                     <br>
-                    @if(Session::has('email')))  
-                    <p>{{ Session::get('email')}}</p>
-                    @endif
-
-
-
 
                     <!-- End PAge Content -->
                 </div>

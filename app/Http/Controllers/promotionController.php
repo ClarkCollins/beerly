@@ -36,7 +36,7 @@ class promotionController extends Controller
          $this->validate($request, [
             'title' => 'required|max:191',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'price' => 'required',
             'establishment_name' => 'required',
             'beer_name' => 'required',
@@ -59,7 +59,7 @@ class promotionController extends Controller
          $this->validate($request, [
             'title' => 'required|max:191',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after:start_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'price' => 'required',
             'establishment_name' => 'required',
             'beer_name' => 'required',
