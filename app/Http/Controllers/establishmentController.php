@@ -39,6 +39,9 @@ class establishmentController extends Controller {
         $establishments = DB::select('select * from establishments where status =?',[$status]);
         return view('dashboard.est_profile', ['establishments' => $establishments]);
     }
+    public function est_user_profile() {
+        return view('dashboard.user_profile');
+    }
 
     public function view_addEstablishment() {
 
@@ -193,3 +196,5 @@ class establishmentController extends Controller {
     }
 
 }
+
+

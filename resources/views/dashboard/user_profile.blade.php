@@ -164,7 +164,7 @@
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
                                 <ul aria-expanded="true" >
-                                    <li><a href="/user_profile">Profile</a></li>
+                                    <li><a href="email-compose.html">Profile</a></li>
 
                                 </ul>
                             </li>
@@ -186,11 +186,11 @@
                 <!-- Bread crumb -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
-                        <h3 class="text-primary">Dashboard</h3> </div>
+                        <h3 class="text-primary">Profile</h3> </div>
                     <div class="col-md-7 align-self-center">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Profile</li>
                         </ol>
                     </div>
                 </div>
@@ -275,5 +275,7 @@
     </body>
 
 </html>
+
+
 
 
