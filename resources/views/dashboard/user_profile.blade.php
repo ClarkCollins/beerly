@@ -11,7 +11,7 @@
         <link rel="icon" href="images/favicon.ico" type="image/x-icon">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>Dashboard</title>
+        <title>Profile</title>
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@
         <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
     </head>
 
     <body class="fix-header">
@@ -159,7 +160,7 @@
                             </li>
 
                             <li> <a  href="/establishment_profile" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
-                                
+
                             </li>
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
@@ -182,7 +183,7 @@
             </div>
             <!-- End Left Sidebar  -->
             <!-- Page wrapper  -->
-            <div class="page-wrapper" style="height:800px;">
+            <div class="page-wrapper" style="height:1200px;">
                 <!-- Bread crumb -->
                 <div class="row page-titles">
                     <div class="col-md-5 align-self-center">
@@ -199,82 +200,391 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-usd f-s-40 color-primary"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>009</h2>
-                                        <p class="m-b-0">Promotions</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>100</h2>
-                                        <p class="m-b-0">Beer Lovers</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card p-30">
-                                <div class="media">
-                                    <div class="media-left meida media-middle">
-                                        <span><i class="fa fa-archive f-s-40 color-warning"></i></span>
-                                    </div>
-                                    <div class="media-body media-text-right">
-                                        <h2>00</h2>
-                                        <p class="m-b-0">Establishment</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
 
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">User Profile</h4>
+
+                            <!--                            testing......................-->
+
+
+                            <div class="container" style="margin-top: 30px;">
+
+                                <div class="col-sm-12">
+                                    <div data-spy="scroll" class="tabbable-panel">
+                                        <div class="tabbable-line">
+                                            <ul class="nav nav-tabs ">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="#tab_default_1" data-toggle="tab">Personal Info </a>
+                                                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#tab_default_2" data-toggle="tab">Reset Password</a>
+                                                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#tab_default_3" data-toggle="tab">Subscription Info</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab_default_1">
+                                                    <form action="/update_profile_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="form-body">
+                                                            <br>
+                                                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12">
+                                                                <img src="<?php echo asset("upload/Auth::user()->user_photo")?>">
+                                                                <img src="upload/collins.jpg" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;"><br>
+                                                                <div class="full-width">
+                                                                    <input class="col-md-10" accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*"id="photo" name="photo" type="file" class="form-control" autofocus>
+                                                                    <input hidden name="photo1" value="<?php $photo = Auth::user()->user_photo;echo $photo; ?>" type="text">
+                                                                    @if ($errors->has('photo'))
+                                                                    <span class="help-block">
+                                                                        <strong>{{ $errors->first('photo') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}" >
+                                                                        <br> <label>First Name</label>
+                                                                        <input id="first_name" name="first_name"  type="text" value="<?php $first_name = Auth::user()->first_name;echo $first_name; ?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('first_name'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('first_name') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Last Name</label>
+                                                                        <input id="last_name" name="last_name"  type="text" value="<?php $last_name = Auth::user()->last_name;
+echo $last_name; ?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('last_name'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('last_name') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--/row-->
+                                                            <!--/row-->
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('contact_no') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Contact Number</label>
+                                                                        <input id="contact_no" name="contact_no"  type="text" value="<?php $contact_no = Auth::user()->contact_no;
+echo $contact_no; ?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('contact_no'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('contact_no') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Email</label>
+                                                                        <input id="email" name="email"  type="email" value="<?php $email = Auth::user()->email;
+echo $email; ?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('email'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--/row-->
+                                                        </div>
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab_default_2">
+<!--                                                    <div class="well well-sm">
+                                                        <h4>EDUCATIONAL BACKGROUND</h4>
+                                                    </div>-->
+                                                    <!--/row-->
+                                                    <form action="#" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Password</label>
+                                                                        <input id="contact_no" name="password"  type="text" value="" class="form-control" autofocus>
+                                                                        @if ($errors->has('password'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('confirm_password') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Confirm Password</label>
+                                                                        <input id="email" name="confirm_password"  type="text" value="" class="form-control" autofocus>
+                                                                        @if ($errors->has('confirm_password'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('confirm_password') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                                                        </div>
+                                                    </form>
+                                                    <!--/row-->
+                                                </div>
+
+                                                <div class="tab-pane" id="tab_default_3">
+                                                    <div class="well well-sm">
+                                                        <h4>EMPLOYMENT RECORD</h4>
+                                                    </div>
+                                                    <p align="right">
+                                                        <button type="button" class="btn btn-default btn-sm">
+                                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+                                        </div><!-- /.col-lg-12 -->
+                                    </div><!-- /.row -->
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <br>
 
 
 
 
-                    <!-- End PAge Content -->
+
+
+                    <!--                            end testing..................-->
                 </div>
-                <!-- End Container fluid  -->
-                <!-- End Container fluid  -->
-                <!-- footer -->
-                <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
-                <!-- End footer -->
             </div>
-            <!-- End Page wrapper  -->
-        </div>
-        <!-- End Wrapper -->
-        <!-- All Jquery -->
-        <script src="js/jquery.min.js"></script>
-        <!-- Bootstrap tether Core JavaScript -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <!-- slimscrollbar scrollbar JavaScript -->
-        <script src="js/jquery.slimscroll.js"></script>
-        <!--Menu sidebar -->
-        <script src="js/sidebarmenu.js"></script>
-        <!--stickey kit -->
-        <script src="js/sticky-kit.min.js"></script>
-        <!--Custom JavaScript -->
-        <script src="js/scripts.js"></script>
 
-    </body>
+
+
+
+            <!-- End PAge Content -->
+        </div>
+        <!-- End Container fluid  -->
+        <!-- End Container fluid  -->
+        <!-- footer -->
+        <footer class="footer"> Â© 2018 All rights reserved. <a href="https://beerlybeloved.co.za">Beerly Beloved</a></footer>
+        <!-- End footer -->
+    </div>
+    <!-- End Page wrapper  -->
+</div>
+<!-- End Wrapper -->
+<!-- All Jquery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script src="js/jquery.slimscroll.js"></script>
+<!--Menu sidebar -->
+<script src="js/sidebarmenu.js"></script>
+<!--stickey kit -->
+<script src="js/sticky-kit.min.js"></script>
+<!--Custom JavaScript -->
+<script src="js/scripts.js"></script>
+
+</body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

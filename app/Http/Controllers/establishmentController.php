@@ -194,7 +194,77 @@ class establishmentController extends Controller {
         $user->save();
         return redirect('event_dashboard');
     }
+     public function update_user_profile_(Request $request) {
+         $id = Session::get('id');
+         $this->validate($request, [
+            'first_name' => 'required|max:191',
+            'last_name' => 'required|max:191',
+            'contact_no' => 'required|numeric|min:10',
+            'email' => 'unique:users,email,' . $id,
+        ]);
+         if ($request->hasfile('photo')) {
+                $image = $request->file('photo');
+                $name = $image->getClientOriginalName();
+                $path = $image->move(public_path() . '/upload/', $name);
+            
+         }
+        $user = User::find($id);
+        $user->first_name = $request->get('first_name');
+        $user->last_name = $request->get('last_name');
+        $user->contact_no = $request->get('contact_no');
+        $user->email = $request->get('email');
+       $user->user_photo = isset($path) ? $path : $path = $request->get('photo1');
+        $user->save();
+        return redirect('user_profile');
+    }
 
 }
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
