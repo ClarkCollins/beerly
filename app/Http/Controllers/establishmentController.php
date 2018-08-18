@@ -9,6 +9,7 @@ use Session;
 use App\User;
 use App\establishments;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class establishmentController extends Controller {
 
@@ -203,9 +204,11 @@ class establishmentController extends Controller {
             'email' => 'unique:users,email,' . $id,
         ]);
          if ($request->hasfile('photo')) {
+                $random1 = rand(1, 9000);
+                $random2 = rand(1, 9000);
                 $image = $request->file('photo');
-                $name = $image->getClientOriginalName();
-                $path = $image->move(public_path() . '/upload/', $name);
+                $name = md5($random1.$random2).$image->getClientOriginalName();
+                $image->move(public_path() . '/upload/', $name);
             
          }
         $user = User::find($id);
@@ -213,7 +216,28 @@ class establishmentController extends Controller {
         $user->last_name = $request->get('last_name');
         $user->contact_no = $request->get('contact_no');
         $user->email = $request->get('email');
-       $user->user_photo = isset($path) ? $path : $path = $request->get('photo1');
+       $user->user_photo = isset($name) ? $name : $name = $request->get('photo1');
+        $user->save();
+        \Session::flash('update_profile_', '');
+        return redirect('user_profile');
+    }
+    public function update_user_password_(Request $request) {
+         $id = Session::get('id');
+         $this->validate($request, [
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        $password = $request->get('password');
+        $user = User::find($id);
+        $user->password = bcrypt($password);
+        $user->save();
+        \Session::flash('password_', '');
+        return redirect('user_profile');
+    }
+    public function delete_user_photo_(Request $request) {
+         $id = Session::get('id');
+        $user = User::find($id);
+        $name = "default.png";
+        $user->user_photo = $name;
         $user->save();
         return redirect('user_profile');
     }
@@ -222,6 +246,29 @@ class establishmentController extends Controller {
 
 
             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

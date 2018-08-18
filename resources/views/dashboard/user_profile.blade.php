@@ -18,6 +18,7 @@
         <link href="css/helper.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/spinners.css" rel="stylesheet">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
         <!--[if lt IE 9]>
@@ -118,7 +119,7 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/5.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -200,6 +201,24 @@
                 <!-- Container fluid  -->
                 <div class="container-fluid">
                     <!-- Start Page Content -->
+                    @if (Session::has('update_profile_'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully updated your profile!",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
+                    @if (Session::has('password_'))
+                    <script>
+                                                swal({
+                              title: "",
+                              text: "You have successfully reset your password",
+                              icon: "success"
+                            });
+                    </script>
+                    @endif
 
                     <div class="card">
                         <div class="card-body">
@@ -213,41 +232,44 @@
                                 <div class="col-sm-12">
                                     <div data-spy="scroll" class="tabbable-panel">
                                         <div class="tabbable-line">
+                                            <!--                                            if statement to load password tab is there is an error-->
+                                            @if ($errors->has('password'))
                                             <ul class="nav nav-tabs ">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" href="#tab_default_1" data-toggle="tab">Personal Info </a>
+                                                    <a class="nav-link" href="#tab_default_1" data-toggle="tab">Personal Info </a>
                                                 </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <li class="nav-item">
-                                                    <a class="nav-link" href="#tab_default_2" data-toggle="tab">Reset Password</a>
+                                                    <a class="nav-link active" href="#tab_default_2" data-toggle="tab">Reset Password</a>
                                                 </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <li class="nav-item">
                                                     <a class="nav-link" href="#tab_default_3" data-toggle="tab">Subscription Info</a>
                                                 </li>
                                             </ul>
                                             <div class="tab-content">
-                                                <div class="tab-pane active" id="tab_default_1">
+                                                <div class="tab-pane" id="tab_default_1">
+                                                    <br>
+                                                    <img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
+                                                    @if(Auth::user()->user_photo == "default.png")
+                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                       
+                                                    </form>
+                                                    @else
+                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                       <button type="submit" class='btn' style='background-color:transparent;'>
+                                                            <i class="fa fa-times"></i> remove photo</button>
+                                                    </form>
+                                                    @endif
+                                                    
                                                     <form action="/update_profile_" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
-                                                            <br>
-                                                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12">
-                                                                <img src="<?php echo asset("upload/Auth::user()->user_photo")?>">
-                                                                <img src="upload/collins.jpg" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;"><br>
-                                                                <div class="full-width">
-                                                                    <input class="col-md-10" accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*"id="photo" name="photo" type="file" class="form-control" autofocus>
-                                                                    <input hidden name="photo1" value="<?php $photo = Auth::user()->user_photo;echo $photo; ?>" type="text">
-                                                                    @if ($errors->has('photo'))
-                                                                    <span class="help-block">
-                                                                        <strong>{{ $errors->first('photo') }}</strong>
-                                                                    </span>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 ">
                                                                     <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}" >
                                                                         <br> <label>First Name</label>
-                                                                        <input id="first_name" name="first_name"  type="text" value="<?php $first_name = Auth::user()->first_name;echo $first_name; ?>" class="form-control" autofocus>
+                                                                        <input id="first_name" name="first_name"  type="text" value="<?php echo Auth::user()->first_name;?>" class="form-control" autofocus>
                                                                         @if ($errors->has('first_name'))
                                                                         <span class="help-block">
                                                                             <strong>{{ $errors->first('first_name') }}</strong>
@@ -258,8 +280,7 @@
                                                                 <div class="col-md-6 ">
                                                                     <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}" >
                                                                         <br> <label>Last Name</label>
-                                                                        <input id="last_name" name="last_name"  type="text" value="<?php $last_name = Auth::user()->last_name;
-echo $last_name; ?>" class="form-control" autofocus>
+                                                                        <input id="last_name" name="last_name"  type="text" value="<?php echo Auth::user()->last_name;?>" class="form-control" autofocus>
                                                                         @if ($errors->has('last_name'))
                                                                         <span class="help-block">
                                                                             <strong>{{ $errors->first('last_name') }}</strong>
@@ -274,8 +295,7 @@ echo $last_name; ?>" class="form-control" autofocus>
                                                                 <div class="col-md-6 ">
                                                                     <div class="form-group{{ $errors->has('contact_no') ? ' has-error' : '' }}" >
                                                                         <br> <label>Contact Number</label>
-                                                                        <input id="contact_no" name="contact_no"  type="text" value="<?php $contact_no = Auth::user()->contact_no;
-echo $contact_no; ?>" class="form-control" autofocus>
+                                                                        <input id="contact_no" name="contact_no"  type="number" value="<?php echo Auth::user()->contact_no; ?>" class="form-control" autofocus>
                                                                         @if ($errors->has('contact_no'))
                                                                         <span class="help-block">
                                                                             <strong>{{ $errors->first('contact_no') }}</strong>
@@ -286,8 +306,7 @@ echo $contact_no; ?>" class="form-control" autofocus>
                                                                 <div class="col-md-6 ">
                                                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" >
                                                                         <br> <label>Email</label>
-                                                                        <input id="email" name="email"  type="email" value="<?php $email = Auth::user()->email;
-echo $email; ?>" class="form-control" autofocus>
+                                                                        <input id="email" name="email"  type="email" value="<?php echo Auth::user()->email;?>" class="form-control" autofocus>
                                                                         @if ($errors->has('email'))
                                                                         <span class="help-block">
                                                                             <strong>{{ $errors->first('email') }}</strong>
@@ -296,6 +315,18 @@ echo $email; ?>" class="form-control" autofocus>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                            <div class="row  col-lg-offset-1 col-md-offset-3 col-xs-5">
+                                                                
+                                                                <div class="full-width">
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;<label>Photo:</label><input class="col-md-10" accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*"id="photo" name="photo" type="file" class="form-control" autofocus>
+                                                                    <input hidden name="photo1" value="<?php echo Auth::user()->user_photo;?>" type="text">
+                                                                    @if ($errors->has('photo'))
+                                                                    <span class="help-block">
+                                                                        <strong>{{ $errors->first('photo') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                            </div><br>
                                                             <!--/row-->
                                                         </div>
                                                         <div class="form-actions">
@@ -305,19 +336,19 @@ echo $email; ?>" class="form-control" autofocus>
                                                     </form>
                                                 </div>
 
-                                                <div class="tab-pane" id="tab_default_2">
-<!--                                                    <div class="well well-sm">
-                                                        <h4>EDUCATIONAL BACKGROUND</h4>
-                                                    </div>-->
+                                                <div class="tab-pane active" id="tab_default_2">
+                                                    <!--                                                    <div class="well well-sm">
+                                                                                                            <h4>EDUCATIONAL BACKGROUND</h4>
+                                                                                                        </div>-->
                                                     <!--/row-->
-                                                    <form action="#" enctype="multipart/form-data"  method="post">
+                                                    <form action="update_password_" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
                                                             <div class="row">
                                                                 <div class="col-md-6 ">
                                                                     <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}" >
                                                                         <br> <label>Password</label>
-                                                                        <input id="contact_no" name="password"  type="text" value="" class="form-control" autofocus>
+                                                                        <input required id="password" name="password"  type="password" value="" class="form-control" autofocus>
                                                                         @if ($errors->has('password'))
                                                                         <span class="help-block">
                                                                             <strong>{{ $errors->first('password') }}</strong>
@@ -328,19 +359,19 @@ echo $email; ?>" class="form-control" autofocus>
                                                             </div>
                                                             <div class="row">
                                                                 <div class="col-md-6 ">
-                                                                    <div class="form-group{{ $errors->has('confirm_password') ? ' has-error' : '' }}" >
+                                                                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}" >
                                                                         <br> <label>Confirm Password</label>
-                                                                        <input id="email" name="confirm_password"  type="text" value="" class="form-control" autofocus>
-                                                                        @if ($errors->has('confirm_password'))
+                                                                        <input required id="confirm_password" name="password_confirmation"  type="password" value="" class="form-control" autofocus>
+                                                                        @if ($errors->has('password_confirmation'))
                                                                         <span class="help-block">
-                                                                            <strong>{{ $errors->first('confirm_password') }}</strong>
+                                                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
                                                                         </span>
                                                                         @endif
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="form-actions">
                                                             <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
                                                         </div>
@@ -360,6 +391,172 @@ echo $email; ?>" class="form-control" autofocus>
                                                 </div>
 
                                             </div>
+                                            <!--                                            end of if statement to load password tab if there is an error-->
+
+
+                                            @else
+                                            <ul class="nav nav-tabs ">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" href="#tab_default_1" data-toggle="tab">Personal Info </a>
+                                                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#tab_default_2" data-toggle="tab">Reset Password</a>
+                                                </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="#tab_default_3" data-toggle="tab">Subscription Info</a>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane active" id="tab_default_1">
+                                                    <br>
+                                                    <img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
+                                                    @if(Auth::user()->user_photo == "default.png")
+                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                       
+                                                    </form>
+                                                    @else
+                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                       <button type="submit" class='btn' style='background-color:transparent;'>
+                                                            <i class="fa fa-times"></i> remove photo</button>
+                                                    </form>
+                                                    @endif
+                                                    <form action="/update_profile_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}" >
+                                                                        <br> <label>First Name</label>
+                                                                        <input id="first_name" name="first_name"  type="text" value="<?php echo Auth::user()->first_name;?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('first_name'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('first_name') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Last Name</label>
+                                                                        <input id="last_name" name="last_name"  type="text" value="<?php echo Auth::user()->last_name;?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('last_name'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('last_name') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--/row-->
+                                                            <!--/row-->
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('contact_no') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Contact Number</label>
+                                                                        <input id="contact_no" name="contact_no"  type="number" value="<?php echo Auth::user()->contact_no;?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('contact_no'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('contact_no') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Email</label>
+                                                                        <input id="email" name="email"  type="email" value="<?php echo Auth::user()->email;?>" class="form-control" autofocus>
+                                                                        @if ($errors->has('email'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('email') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!--/row-->
+                                                            
+                                                            <div class="row  col-lg-offset-1 col-md-offset-3 col-xs-5">
+                                                                
+                                                                <div class="full-width">
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;<label>Photo:</label><input class="col-md-10" accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*"id="photo" name="photo" type="file" class="form-control" autofocus>
+                                                                    <input hidden name="photo1" value="<?php $photo = Auth::user()->user_photo;
+                                                                           echo $photo;
+?>" type="text">
+                                                                    @if ($errors->has('photo'))
+                                                                    <span class="help-block">
+                                                                        <strong>{{ $errors->first('photo') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                            </div><br>
+                                                        </div>
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                                <div class="tab-pane" id="tab_default_2">
+                                                    <!--                                                    <div class="well well-sm">
+                                                                                                            <h4>EDUCATIONAL BACKGROUND</h4>
+                                                                                                        </div>-->
+                                                    <!--/row-->
+                                                    <form action="update_password_" enctype="multipart/form-data"  method="post">
+                                                        {{ csrf_field() }}
+                                                        <div class="form-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Password</label>
+                                                                        <input required id="password" name="password"  type="password" value="" class="form-control" autofocus>
+                                                                        @if ($errors->has('password'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('password') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}" >
+                                                                        <br> <label>Confirm Password</label>
+                                                                        <input required id="confirm_password" name="password_confirmation"  type="password" value="" class="form-control" autofocus>
+                                                                        @if ($errors->has('password_confirmation'))
+                                                                        <span class="help-block">
+                                                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-actions">
+                                                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                                                        </div>
+                                                    </form>
+                                                    <!--/row-->
+                                                </div>
+
+                                                <div class="tab-pane" id="tab_default_3">
+                                                    <div class="well well-sm">
+                                                        <h4>EMPLOYMENT RECORD</h4>
+                                                    </div>
+                                                    <p align="right">
+                                                        <button type="button" class="btn btn-default btn-sm">
+                                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
+                                                    </p>
+
+                                                </div>
+
+                                            </div>
+
+                                            @endif
+
                                         </div><!-- /.col-lg-12 -->
                                     </div><!-- /.row -->
 
@@ -368,12 +565,6 @@ echo $email; ?>" class="form-control" autofocus>
                         </div>
                     </div>
 
-
-
-
-
-
-                    <!--                            end testing..................-->
                 </div>
             </div>
 
@@ -408,6 +599,128 @@ echo $email; ?>" class="form-control" autofocus>
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
