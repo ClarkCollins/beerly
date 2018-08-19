@@ -119,10 +119,10 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="upload/user_photo/<?php echo Auth::user()->user_photo;?>" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
-                                        <li><a href="#"><i class="ti-user"></i> Profile</a></li>
+                                        <li><a href="/user_profile"><i class="ti-user"></i> Profile</a></li>
                                         <li><a href="#"><i class="ti-wallet"></i> Billing</a></li>
 
                                         <li><a href="{{ route('logout') }}"
@@ -147,12 +147,12 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li class="nav-devider"></li>
-                            <li class="nav-label">User Name</li>
+                            <li class="nav-label"><?php echo ucfirst(Auth::user()->first_name." ". Auth::user()->last_name) ;?></li>
 
 
 
 
-                            <li> <a class="active"  href="#" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a  href="/establishment_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 
@@ -166,7 +166,7 @@
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
                                 <ul aria-expanded="true" >
-                                    <li><a href="email-compose.html">Profile</a></li>
+                                    <li><a href="/user_profile">Profile</a></li>
 
                                 </ul>
                             </li>
@@ -248,20 +248,11 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane" id="tab_default_1">
                                                     <br>
-                                                    <img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
+                                                    <img src="upload/user_photo/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
                                                     @if(Auth::user()->user_photo == "default.png")
-                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
-                                                        {{ csrf_field() }}
-                                                       
-                                                    </form>
                                                     @else
-                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
-                                                        {{ csrf_field() }}
-                                                       <button type="submit" class='btn' style='background-color:transparent;'>
-                                                            <i class="fa fa-times"></i> remove photo</button>
-                                                    </form>
+                                                    &nbsp;&nbsp;&nbsp;<a style='background-color:transparent;'  href="/delete_photo_"><i class="fa fa-times"></i> remove photo</a>
                                                     @endif
-                                                    
                                                     <form action="/update_profile_" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
@@ -379,15 +370,26 @@
                                                     <!--/row-->
                                                 </div>
 
-                                                <div class="tab-pane" id="tab_default_3">
-                                                    <div class="well well-sm">
-                                                        <h4>EMPLOYMENT RECORD</h4>
-                                                    </div>
-                                                    <p align="right">
-                                                        <button type="button" class="btn btn-default btn-sm">
-                                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                                    </p>
-
+                                                <div class="tab-pane" id="tab_default_3"><br><br>
+                                                    <p>Your subscription Details:</p>            
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left">Reference Number:</th>
+                                                                <th class="text-left">Last Payment Date:</th>
+                                                                <th class="text-left">Days Remaining:</th>
+                                                                <th class="text-left">Status:</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">John</td>
+                                                                <td class="text-left">John</td>
+                                                                <td class="text-left">Doe</td>
+                                                                <td class="text-left">john@example.com</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table><br><br>
                                                 </div>
 
                                             </div>
@@ -409,18 +411,11 @@
                                             <div class="tab-content">
                                                 <div class="tab-pane active" id="tab_default_1">
                                                     <br>
-                                                    <img src="upload/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
+                                                    <img src="upload/user_photo/<?php echo Auth::user()->user_photo;?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
                                                     @if(Auth::user()->user_photo == "default.png")
-                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
-                                                        {{ csrf_field() }}
-                                                       
-                                                    </form>
+
                                                     @else
-                                                    <form action="/delete_photo_" enctype="multipart/form-data"  method="post">
-                                                        {{ csrf_field() }}
-                                                       <button type="submit" class='btn' style='background-color:transparent;'>
-                                                            <i class="fa fa-times"></i> remove photo</button>
-                                                    </form>
+                                                    &nbsp;&nbsp;&nbsp;<a style='background-color:transparent;'  href="/delete_photo_"><i class="fa fa-times"></i> remove photo</a>
                                                     @endif
                                                     <form action="/update_profile_" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
@@ -481,9 +476,7 @@
                                                                 
                                                                 <div class="full-width">
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;<label>Photo:</label><input class="col-md-10" accept=".jpeg, .jpg, .jpe, .jfif, .jif,.png,image/*"id="photo" name="photo" type="file" class="form-control" autofocus>
-                                                                    <input hidden name="photo1" value="<?php $photo = Auth::user()->user_photo;
-                                                                           echo $photo;
-?>" type="text">
+                                                                    <input hidden name="photo1" value="<?php $photo = Auth::user()->user_photo; echo $photo;?>" type="text">
                                                                     @if ($errors->has('photo'))
                                                                     <span class="help-block">
                                                                         <strong>{{ $errors->first('photo') }}</strong>
@@ -542,14 +535,29 @@
                                                     <!--/row-->
                                                 </div>
 
-                                                <div class="tab-pane" id="tab_default_3">
-                                                    <div class="well well-sm">
-                                                        <h4>EMPLOYMENT RECORD</h4>
-                                                    </div>
-                                                    <p align="right">
-                                                        <button type="button" class="btn btn-default btn-sm">
-                                                            <span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                                    </p>
+                                                <div class="tab-pane" id="tab_default_3"><br><br>
+                                                    <p>Your subscription Details:</p>            
+                                                    <table class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-left">Reference Number:</th>
+                                                                <th class="text-left">Last Payment Date:</th>
+                                                                <th class="text-left">Days Remaining:</th>
+                                                                <th class="text-left">Status:</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-left">
+                                                                    <?php echo strtoupper(substr(Auth::user()->first_name,0,3))."-08".Auth::user()->id.strtoupper(substr(Auth::user()->remember_token,0,3)) ;?>
+                                                                </td>
+                                                                <td class="text-left">John</td>
+                                                                <td class="text-left">Collins</td>
+                                                                <td class="text-left"><?php echo uniqid() ;?></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table><br><br>
+                                                </div>
 
                                                 </div>
 
@@ -599,6 +607,86 @@
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

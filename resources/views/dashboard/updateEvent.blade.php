@@ -147,7 +147,7 @@
                     <nav class="sidebar-nav">
                         <ul id="sidebarnav">
                             <li class="nav-devider"></li>
-                            <li class="nav-label">User Name</li>
+                            <li class="nav-label"><?php echo ucwords(Auth::user()->first_name." ". Auth::user()->last_name) ;?></li>
 
 
 
@@ -422,4 +422,5 @@
     </body>
 
 </html>
+
 

@@ -43,7 +43,7 @@ Route::get('/view_establishment', 'establishmentController@getEstablishment');
 Route::get('/user_profile', 'establishmentController@est_user_profile');
 Route::post('/update_profile_', 'establishmentController@update_user_profile_');
 Route::post('/update_password_', 'establishmentController@update_user_password_');
-Route::post('/delete_photo_', 'establishmentController@delete_user_photo_');
+Route::get('/delete_photo_', 'establishmentController@delete_user_photo_');
 
 Route::get('/add_promos_view', 'promotionController@addPromo_view');
 Route::post('/add_promos', 'promotionController@addPromo');
@@ -66,6 +66,7 @@ Route::get('/update_promo_view_event/{id}', 'eventController@updatePromoView');
 Route::post('/update_promo_event/{id}', 'eventController@updatePromo');
 Route::post('/delete_promo_event/{id}', 'eventController@deletePromotion');
 });
+
 
 
 

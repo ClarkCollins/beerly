@@ -208,7 +208,7 @@ class establishmentController extends Controller {
                 $random2 = rand(1, 9000);
                 $image = $request->file('photo');
                 $name = md5($random1.$random2).$image->getClientOriginalName();
-                $image->move(public_path() . '/upload/', $name);
+                $image->move(public_path() . '/upload/user_photo/', $name);
             
          }
         $user = User::find($id);
@@ -233,7 +233,7 @@ class establishmentController extends Controller {
         \Session::flash('password_', '');
         return redirect('user_profile');
     }
-    public function delete_user_photo_(Request $request) {
+    public function delete_user_photo_() {
          $id = Session::get('id');
         $user = User::find($id);
         $name = "default.png";
@@ -246,6 +246,8 @@ class establishmentController extends Controller {
 
 
             
+
+
 
 
 
