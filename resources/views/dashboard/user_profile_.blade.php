@@ -152,15 +152,15 @@
 
 
 
-                            <li> <a class=""  href="establishment_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
+                            <li> <a  href="/event_dashboard" aria-expanded="true"><i class="fa fa-tachometer"></i><span class="show-menu">Dashboard </span></a>
 
                             </li>
 
-                            <li> <a  href="/establishment_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
+                            <li> <a  href="/event_promo" aria-expanded="true"><i class="fa fa-star-half-o"></i><span class="show-menu">Promotions </span></a>
 
                             </li>
 
-                            <li> <a  href="/establishment_profile" aria-expanded="true" href="#" ><i class="fa fa-building"></i><span class="show-menu">Establishment Profile </span></a>
+                            <li> <a  class="active"  href="/event_profile" ><i class="fa fa-calendar" aria-hidden="true"></i><span class="show-menu">Event Profile </span></a>
 
                             </li>
                             <li class="nav-label">Account Management</li>
@@ -251,9 +251,9 @@
                                                     <img src="upload/user_photo/<?php echo Auth::user()->user_photo; ?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
                                                     @if(Auth::user()->user_photo == "default.png")
                                                     @else
-                                                    &nbsp;&nbsp;&nbsp;<a href="/delete_photo_"><i class="fa fa-times"></i> remove photo</a>
+                                                    &nbsp;&nbsp;&nbsp;<a href="/delete_photo"><i class="fa fa-times"></i> remove photo</a>
                                                     @endif
-                                                    <form action="/update_profile_" enctype="multipart/form-data"  method="post">
+                                                    <form action="/update_profile" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
                                                             <div class="row">
@@ -332,7 +332,7 @@
                                                                                                             <h4>EDUCATIONAL BACKGROUND</h4>
                                                                                                         </div>-->
                                                     <!--/row-->
-                                                    <form action="update_password_" enctype="multipart/form-data"  method="post">
+                                                    <form action="update_password" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
                                                             <div class="row">
@@ -461,9 +461,9 @@
                                                     <img src="upload/user_photo/<?php echo Auth::user()->user_photo; ?>" alt="user photo" style="display:block;width:150px;height:150px;outline: #4CAF50 solid 2px;outline-style:dotted;">
                                                     @if(Auth::user()->user_photo == "default.png")
                                                     @else
-                                                    &nbsp;&nbsp;&nbsp;<a href="/delete_photo_"><i class="fa fa-times"></i> remove photo</a>
+                                                    &nbsp;&nbsp;&nbsp;<a href="/delete_photo"><i class="fa fa-times"></i> remove photo</a>
                                                     @endif
-                                                    <form action="/update_profile_" enctype="multipart/form-data"  method="post">
+                                                    <form action="/update_profile" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
                                                             <div class="row">
@@ -546,7 +546,7 @@
                                                                                                             <h4>EDUCATIONAL BACKGROUND</h4>
                                                                                                         </div>-->
                                                     <!--/row-->
-                                                    <form action="update_password_" enctype="multipart/form-data"  method="post">
+                                                    <form action="/update_password" enctype="multipart/form-data"  method="post">
                                                         {{ csrf_field() }}
                                                         <div class="form-body">
                                                             <div class="row">
@@ -699,6 +699,13 @@ echo "<p style='color:green'>" . strtoupper($ref1 . "-" . $ref2 . "-" . $ref3);
 </body>
 
 </html>
+
+
+
+
+
+
+
 
 
 

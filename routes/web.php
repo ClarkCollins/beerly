@@ -65,7 +65,14 @@ Route::post('/add_promos_events', 'eventController@addPromo');
 Route::get('/update_promo_view_event/{id}', 'eventController@updatePromoView');
 Route::post('/update_promo_event/{id}', 'eventController@updatePromo');
 Route::post('/delete_promo_event/{id}', 'eventController@deletePromotion');
+Route::get('/user_profile_', 'eventController@evt_user_profile');
+Route::post('/update_profile', 'eventController@update_user_profile_');
+Route::post('/update_password', 'eventController@update_user_password_');
+Route::get('/delete_photo', 'eventController@delete_user_photo_');
 });
+
+
+
 
 
 

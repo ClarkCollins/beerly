@@ -118,7 +118,7 @@
 
                             <!-- Profile -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/5.jpg" alt="user" class="profile-pic" /></a>
+                                <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="upload/user_photo/<?php echo Auth::user()->user_photo; ?>" alt="user" class="profile-pic" alt="user" class="profile-pic" /></a>
                                 <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul class="dropdown-user">
                                         <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -165,7 +165,7 @@
                             <li class="nav-label">Account Management</li>
                             <li> <a class="has-arrow  " href="#" aria-expanded="true"><i class="fa fa-users"></i>Account</a>
                                 <ul aria-expanded="true" >
-                                    <li><a href="email-compose.html">Profile</a></li>
+                                    <li><a href="/user_profile_">Profile</a></li>
 
                                 </ul>
                             </li>
@@ -273,4 +273,6 @@
     </body>
 
 </html>
+
+
 

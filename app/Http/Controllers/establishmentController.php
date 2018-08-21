@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Session;
 use App\User;
 use App\establishments;
+use App\subscription_account;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -41,7 +42,9 @@ class establishmentController extends Controller {
         return view('dashboard.est_profile', ['establishments' => $establishments]);
     }
     public function est_user_profile() {
-        return view('dashboard.user_profile');
+        $status = "Active";
+        $subscription_account = DB::select('select * from subscription_account where status =?',[$status]);
+        return view('dashboard.user_profile', ['subscription_account' => $subscription_account]);
     }
 
     public function view_addEstablishment() {
@@ -176,6 +179,7 @@ class establishmentController extends Controller {
         $id = Session::get('id');
         $user = User::find($id);
         $user->user_type = $request->get('user_type');
+        $user->reference = md5($id);
         $user->save();
         return redirect('establishment_dashboard');
     }
@@ -184,6 +188,7 @@ class establishmentController extends Controller {
         $id = Session::get('id');
         $user = User::find($id);
         $user->user_type = $request->get('user_type');
+        $user->reference = md5($id);
         $user->save();
         return redirect('event_dashboard');
     }
@@ -192,6 +197,7 @@ class establishmentController extends Controller {
         $id = Session::get('id');
         $user = User::find($id);
         $user->user_type = $request->get('user_type');
+        $user->reference = md5($id);
         $user->save();
         return redirect('event_dashboard');
     }
@@ -246,6 +252,13 @@ class establishmentController extends Controller {
 
 
             
+
+
+
+
+
+
+
 
 
 
